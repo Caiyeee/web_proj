@@ -1,0 +1,301 @@
+/*nav导航栏*/
+.nav-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+  background: #192332;
+  z-index: 5;
+  overflow: hidden;
+}
+.nav-content {
+  max-width: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+.nav-content a {
+  color: white;
+  text-decoration: none;
+}
+.nav-content a:hover {
+  color: #9d9d9d;
+}
+.nav-content ul, .nav-content .logo {
+  float: left;
+}
+.nav-content .logo {
+  position: relative;
+  top: 4px;
+}
+
+.nav-content ul li {
+  display: inline-block;
+  padding-left: 10px;
+  height: 4px;
+  line-height: 40px;
+}
+.login_register {
+  float: right;
+}
+.btn_login, .btn_regis {
+  padding-left: 10px;
+  height: 40px;
+  line-height: 40px;
+}
+.btn_login:hover, .btn_regis:hover {
+  cursor: pointer;
+}
+
+
+
+/*slider*/
+#slider-wrapper {
+   position:relative;
+   margin:40px auto;
+   width:960px;
+   height:220px;
+}
+#slider-wrapper .banner {
+   position:absolute;
+   top:0;width:100%;
+   height:100%;
+   opacity:0;
+   transition: opacity 2s;
+}
+#slider-wrapper .tab {
+  position:absolute;
+  bottom:10px;
+  right:10px;
+}
+#slider-wrapper .tab span {
+  display: inline-block;
+  width:6px;
+  height:6px;
+  margin:3px;
+  background:rgba(105,105,105,0.5);
+  border-radius:50%;
+  cursor: pointer;
+  border:2px solid #887B6E;
+}
+#slider-wrapper .tab span.on {
+  background:#E2CEB7;
+}
+#slider-wrapper .tab span:hover {
+  background:#E2CEB7;
+}
+.arrow {
+  position: absolute;
+  top: 80px;
+  z-index: 2;
+  display: none;
+  width: 40px;
+  height: 40px;
+  font-size: 36px;
+  line-height: 39px;
+  text-align: center;
+  color: #fff;
+  background-color: RGBA(0, 0, 0, .3);
+  cursor: pointer;
+}
+.arrow:hover {
+            background-color: RGBA(0, 0, 0, .7);
+}
+#slider-wrapper:hover .arrow {
+  display: block;
+}
+#slider-wrapper .prev{
+  left: 0px;
+}
+#slider-wrapper .next {
+  right: 0px;
+}
+
+
+
+/*content*/
+.content-wrapper {
+  width: 960px;
+  height: 500px;
+  margin: 10px auto;
+}
+.content-wrapper .topic {
+ text-align: left;
+ padding-bottom: 20px;
+ overflow: hidden;
+ border-bottom: 1px solid #eee;
+}
+.topic p {
+  display: block;
+  word-wrap: break-word;
+  font-size: 26px;
+  font-weight: bold;
+  color: #494949;
+  padding: 0 0 15px 0;
+  line-height: 1.1;
+}
+.topic .class {
+  float: left;
+}
+.topic .class li{
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.topic .class li:hover {
+  background: #eee;
+}
+.topic .selected {
+  background: #4b8ccb;
+  color: #fff;
+}
+.topic .search {
+  margin-top: -10px;
+  float: right;
+  width: 202px;
+  height: 35px;
+  border: 1px solid #c4c4c4;
+  box-shadow: 0 2px 2px rgba(0,0,0,0.1) inset;
+  border-radius: 20px;
+  background: #f7f7f7;
+  padding: 0 8px;
+}
+input {
+  text-decoration: none;
+  border: none;
+  outline: 0;
+}
+.search input.text {
+  width: 165px;
+  height: 27px;
+  line-height: 27px;
+  font-size: 14px;
+  background: 0;
+  border-radius: 3px;
+  color: #000;
+}
+.search .search-button {
+  width: 32px;
+  height: 23px;
+  margin: 2px 0 0;
+      background: url(//static1.mtime.cn/20170731144154/images/2014/topbar.png) no-repeat -155px -106px;
+      cursor: pointer;
+}
+
+
+
+/**ui-dialog login and register**/
+.ui-dialog {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  margin-left: -190px;
+  width: 380px;
+  height: auto;
+  border: 1px solid #D5D5D5;
+  border-radius: 5px;
+  background: #fff;
+  display: none;
+  z-index: 9000;
+}
+.ui-dialog a {
+  text-decoration: none;
+}
+.ui-dialog-title{
+  height: 48px;
+  line-height: 48px;
+  padding:0px 20px;
+  color: #535353;
+  font-size: 16px;
+  border-bottom: 1px solid #efefef;
+  background: #f5f5f5;
+  text-align: center;
+  user-select:none;
+}
+.ui-dialog-closebutton{
+  width: 16px;height: 16px;display: block;
+  position: absolute;top: 12px;right: 20px;
+  background: url(../image/close_def.png) no-repeat;
+  cursor: pointer;
+}
+.ui-dialog-closebutton:hover {
+  background:url(../image/close_hov.png);
+}
+.ui-dialog-content{
+  padding: 15px 20px;
+}
+.ui-dialog-pt15{
+  padding-top: 15px;
+}
+.ui-dialog-40 {
+  height: 40px;
+  line-height: 40px;
+  text-align: right;
+}
+
+.ui-dialog-input{
+  width: 100%;height: 40px;
+  margin: 0px;padding:0px;
+  border: 1px solid #d5d5d5;
+  font-size: 16px;color: #c1c1c1;
+  text-indent: 25px;
+  outline: none;
+}
+.ui-dialog-input-username{
+  background: url(../image/input_username.png) no-repeat 2px ;
+}
+
+.ui-dialog-input-password{
+  background: url(../image/input_password.png) no-repeat 2px ;
+}
+
+.ui-dialog-submit{
+  margin-top: 15px;
+  width: 100%;
+  height: 50px;
+  background: #3b7ae3;
+  border:none;
+  font-size: 16px;
+  color: #fff;
+  outline: none;
+  text-decoration: none;
+  display: block;
+  text-align: center;
+  line-height: 50px;
+}
+
+.ui-dialog-submit:hover{
+  background: #3f81b0;
+}
+.ui-mask{
+  width: 100%;
+  height:100%;
+  background: #000;
+  position: fixed;
+  top: 0px;left: 0px;
+  z-index: 8000;
+  opacity:0.4;
+  display: none;
+  filter: Alpha(opacity=40);
+}
+
+
+/*footer*/
+.bottom-footer {
+/*  position: relative;
+  margin: -64px auto 0 auto;*/
+  /*clear: both;*/
+  width: 100%;
+  height: 20px;
+  text-align: center;
+  background: rgb(51, 51, 51);
+}
+.bottom-footer p {
+  font-size: 0.5rem;
+  height: 20px;
+  line-height: 20px;
+  color: rgb(158, 177, 194);
+}

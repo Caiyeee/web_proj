@@ -1,15 +1,18 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   request.setCharacterEncoding("utf-8");
+  // Movie movie = new Movie(name,)
 
 %>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
 <head>
-  <title>电影网站首页</title>
+  <title>录入页</title>
   <link rel="stylesheet" type="text/css" href="public/css/index.css">
   <link rel="stylesheet" type="text/css" href="public/css/reset.css">
+  <link rel="stylesheet" type="text/css" href="public/css/addMovie.css">
   <script type="text/javascript" src="public/js/index.js"></script>
+  <script type="text/javascript" src="public/js/addMovie.js"></script>
 </head>
 <body>
   <!--导航栏-->
@@ -17,7 +20,7 @@
     <div class="nav-content">
       <img class="logo" src="public/image/hdmovie_32.png">
       <ul>
-        <li><a href="#">首页</a></li>
+        <li><a href="index.jsp">首页</a></li>
         <li><a href="#">关于我们</a></li>
       </ul>
       <div class="login_register">
@@ -63,42 +66,51 @@
     <div class="prev arrow">&lt;</div>
     <div class="next arrow">&gt;</div>
   </div>
-  <!--电影内容-->
-  <div class="content-wrapper">
-    <div class="topic">
-      <p>电影</p>
-      <ul class="class">
-        <li class="selected">全部</li>
-        <li>华语</li>
-        <li>欧美</li>
-        <li>韩国</li>
-        <li>日本</li>
-        <li>动作</li>
-        <li>喜剧</li>
-        <li>爱情</li>
-        <li>科幻</li>
-        <li>悬疑</li>
-        <li>恐怖</li>
-        <li>动画</li>
-      </ul>
-      <div class="search">
-        <input type="text" name="search" autocomplete="off" placeholder="搜索影片" class="text">
-        <input type="button" name="searchButton" id="searchButton" class="search-button">
+
+  <div class="add-content">
+    <div class="add-topic">
+      <p>电影录入页</p>
+    </div>
+    <div class="add-detail">
+      <div class="detail">
+        <label>电影名称</label>
+        <input type="text" name="movieName" id="movie-name">
+      </div>
+      <div class="detail">
+        <label>导演</label>
+        <input type="text" name="director" id="movie-director">
+      </div>
+      <div class="detail">
+        <label>上映年份</label>
+        <input type="text" name="year" id="movie-year">
+      </div>
+      <div class="detail">
+        <label>演员</label>
+        <input type="text" name="actor" id="movie-actor">
+      </div>
+      <div class="detail">
+        <label>海报上传</label>
+        <input type="file" name="poster" id="movie-post">
+      </div>
+      <div class="detail">
+        <label class="des">电影简介</label>
+        <textarea type="text" name="descri" id="movie-descri"></textarea>
       </div>
     </div>
-    <div class="content"></div>
+    <button id="movie_admin">录入</button>
   </div>
+
   <!--footer-->
   <div class="footer-wrapper">
     <div class="bottom-footer">
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
-  <!--登录框-->
+  <!--登陆框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
-      登录通行证
+      登陆通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">

@@ -4,7 +4,6 @@
 
 %>
 <!DOCTYPE HTML>
-<!DOCTYPE html>
 <html>
 <head>
   <title>电影网站首页</title>
@@ -91,11 +90,11 @@
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
-  <!--登陆框-->
+  <!--登录框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <div class="ui-dialog " id="dialog-Login" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
-      登陆通行证
+      登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">

@@ -95,10 +95,14 @@
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
+<<<<<<< HEAD
+=======
+  <!--登录框-->
+>>>>>>> 34389096be58fb107de0afec48f3cc66b72d48b5
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
-      登陆通行证
+      登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">

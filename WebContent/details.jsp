@@ -1,14 +1,17 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   	request.setCharacterEncoding("utf-8");
-	boolean b = connect();
-	List<Map<String,String>> list = queryMovie("2",2);
+
 	String moviename = "";
 	String moviedirector = "";
 	String moviestarring = "";
 	String movieyear = "";
 	String movieclass = "";
 	String movieinfo = "";
+	int movieid = Integer.parseInt("2");
+	
+	boolean b = connect();
+	List<Map<String,String>> list = queryMovie("2",2);
 	if(list != null){
 		Map<String,String> map = list.get(0);
 		moviename += map.get("name");
@@ -27,19 +30,44 @@
 		movieinfo = "null";
 	}
 	
-	String editstr = "编辑内容";
-	String isChange = "false";
+	String editstr = "";
+	String isChange = "";
+	String isRead = "";
+	String sub = "";
 	
-	if(request.getMethod().equalsIgnoreCase("post"))
+	if(!request.getMethod().equalsIgnoreCase("post"))
 	{
-		if(isChange.equals("false")){
+		editstr = "编辑内容";
+		isChange = "false";
+		isRead = "";
+	}
+	else{
+		sub = request.getParameter("submit1");
+		if(sub.equals("编辑内容")){
 			editstr = "修改完成";
 			isChange = "true";
+			isRead = "";
 		}
-		else{
+		else if(sub.equals("修改完成")){
+			moviename = request.getParameter("name");
+			moviedirector = request.getParameter("director");
+			moviestarring = request.getParameter("starring");
+			movieyear = request.getParameter("year");
+			movieclass = request.getParameter("classes");
+			movieinfo = request.getParameter("info");
+			updateMovie(movieid, "name", moviename);
+			updateMovie(movieid, "director", moviedirector);
+			updateMovie(movieid, "starring", moviestarring);
+			updateMovie(movieid, "year", movieyear);
+			updateMovie(movieid, "classes", movieclass);
+			updateMovie(movieid, "info", movieinfo);
+			editstr = "编辑内容";
 			isChange = "false";
+			isRead = "readonly='true'";
 		}
 	}
+
+	
 %>
 <!DOCTYPE HTML>
 <html>
@@ -51,6 +79,7 @@
   <script type="text/javascript" src="public/js/details.js"></script>
 </head>
 <body>
+  <form action="details.jsp" method="post">
   <!-- 向js文件传递信息 -->
   <input type = "hidden" id="tag" value="<%= isChange%>"> 
   <!--导航栏-->
@@ -70,26 +99,24 @@
   
   <!-- 影片详情 -->
   <div class="detail">
-  	<p><span id="moviename"><%= moviename %> </span>
-  	<form action="details.jsp" method="post">
-  	<input id="shortcomment" type="submit" name="submit1" value=<%= editstr%>>
-  	</form>
+  	<p><input id="moviename" name="name" value=<%= moviename %>></p>
+  	<input id="shortcomment" type="submit" value=<%= editstr%> name="submit1">
   	<span><img id="editicon" src="public/image/editicon.png"></span>
   	<p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
   	<div id="movieinfo">
-  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> readonly="true"></p><br>
-  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> readonly="true"></p><br>
-  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> readonly="true"></p><br>
-  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> readonly="true"></p><br>
+  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> name="director"></p><br>
+  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> name="starring"></p><br>
+  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> name="year"></p><br>
+  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> name="classes"></p><br>
   	</div>
   </div>
   
-  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" readonly="true"><%= movieinfo%></textarea></div>
+  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" <%= isRead%> name=info><%= movieinfo%></textarea></div>
   
   <div class="newcomment">
   	 <div class = "newcommentsize">
 	  	 <label class="com">请写下你的观影感受吧~</label><br>
-	     <textarea type="text" name="new-comment" id="my-comment"><%= isChange%></textarea><br>
+	     <textarea type="text" name="new-comment" id="my-comment"></textarea><br>
 	     <button id="comment-sub">提交</button>
   	 </div>
   </div><br>
@@ -149,6 +176,7 @@
     </div>
   </div>
   <script type="text/javascript" src="public/js/details.js"></script>
+  </form>
 </body>
 </html>
 

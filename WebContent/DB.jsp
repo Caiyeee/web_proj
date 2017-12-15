@@ -22,7 +22,8 @@
 			query += map.get("id") + map.get("name")+"\n";
 		}
 	}else {query="null";}
-*/	
+	//查询用户，返回0代表不存在，否则返回其密码，null则是查询失败
+	String s = queryUser("123");*、
 %>
 <%!
 	String test ="test";
@@ -168,6 +169,24 @@
 			return null;
 		}
 	}
+	//查询用户
+	public String queryUser(String name){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from users where name=\'" + name + "\'";
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				rs.next();
+				return rs.getString("password");		
+			} else {
+				stmt.close();
+				return "0";
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//把ResultSet转化为list，list中的条目是map<string,string>
 	public static List<Map<String,String>> resultsetToList(ResultSet rs) throws java.sql.SQLException {
 		if(rs == null)	return null;
@@ -276,6 +295,6 @@
 <title>database</title>
 </head>
 <body>
-
+	<%=test %>
 </body>
 </html>

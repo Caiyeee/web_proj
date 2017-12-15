@@ -33,7 +33,7 @@
   }
 
   //编辑词条
-  var director = g('director');
+  /*var director = g('director');
   var starring = g('starring');
   var year = g('year');
   var movieclass = g('movieclass');
@@ -57,4 +57,4 @@
 		  movieclass.readOnly=true;
 		  movieplot.readOnly = true;
 	  }
-  }
+  }*/

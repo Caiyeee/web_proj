@@ -1,30 +1,44 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   	request.setCharacterEncoding("utf-8");
+	boolean b = connect();
 	List<Map<String,String>> list = queryMovie("2",2);
-	String query="*";
+	String moviename = "";
+	String moviedirector = "";
+	String moviestarring = "";
+	String movieyear = "";
+	String movieclass = "";
+	String movieinfo = "";
 	if(list != null){
 		Map<String,String> map = list.get(0);
-		query += map.get("id") + map.get("name")+"\n";
-	}else {query="null";}
-/*	boolean b = connect();
-	List<Map<String,String>> list = movieClass("kf");
-	String query="*";
-	if(list != null){
-		query = "a";
-		for(int i=0; i<list.size(); i++){
-			Map<String,String> map = list.get(i);
-			query += map.get("id") + map.get("name")+"\n";
-		}
-	}else {query="null";}*/
-	
-	String tag = "true";
-	String isChange = request.getParameter("tag");
-	if(isChange == null){
-		isChange = "false";
+		moviename += map.get("name");
+		moviedirector += map.get("director");
+		moviestarring += map.get("starring");
+		movieyear += map.get("year");
+		movieclass += map.get("classes");
+		movieinfo += map.get("info");
 	}
-	else if(isChange.equals("true")){
-		isChange = "true";
+	else {
+		moviename = "null";
+		moviedirector = "null";
+		moviestarring = "null";
+		movieyear = "null";
+		movieclass = "null";
+		movieinfo = "null";
+	}
+	
+	String editstr = "编辑内容";
+	String isChange = "false";
+	
+	if(request.getMethod().equalsIgnoreCase("post"))
+	{
+		if(isChange.equals("false")){
+			editstr = "修改完成";
+			isChange = "true";
+		}
+		else{
+			isChange = "false";
+		}
 	}
 %>
 <!DOCTYPE HTML>
@@ -37,14 +51,15 @@
   <script type="text/javascript" src="public/js/details.js"></script>
 </head>
 <body>
-  <input type = "hidden" id="tag" value="<%= tag%>"> 
+  <!-- 向js文件传递信息 -->
+  <input type = "hidden" id="tag" value="<%= isChange%>"> 
   <!--导航栏-->
   <div class="nav-wrapper">
     <div class="nav-content">
       <img class="logo" src="public/image/hdmovie_32.png">
       <ul>
         <li><a href="index.jsp">首页</a></li>
-        <li><a href="tag=<%=tag %>>">关于我们</a></li>
+        <li><a href="#">关于我们</a></li>
       </ul>
       <div class="login_register">
         <span class="btn_login"><a id="btn_login">登录</a></span>
@@ -55,27 +70,26 @@
   
   <!-- 影片详情 -->
   <div class="detail">
-  	<p><span id="moviename">怦然心动 </span>
+  	<p><span id="moviename"><%= moviename %> </span>
   	<form action="details.jsp" method="post">
-  	<a id="shortcomment" href="details.jsp?tag=true">&nbsp;编辑内容</a>
+  	<input id="shortcomment" type="submit" name="submit1" value=<%= editstr%>>
   	</form>
   	<span><img id="editicon" src="public/image/editicon.png"></span>
-  	</p>
   	<p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
   	<div id="movieinfo">
-  	<p>导演：<input id="director" type="text" value="hhh" readonly="true"></p><br>
-  	<p>主演：<input id="starring" type="text" value="hhh" readonly="true"></p><br>
-  	<p>上映年份：<input id="year" type="text" value="hhh" readonly="true"></p><br>
-  	<p>类别：<input id="movieclass" type="text" value="hhh" readonly="true"></p><br>
+  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> readonly="true"></p><br>
+  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> readonly="true"></p><br>
+  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> readonly="true"></p><br>
+  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> readonly="true"></p><br>
   	</div>
   </div>
   
-  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" readonly="true"><%=test %></textarea></div>
+  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" readonly="true"><%= movieinfo%></textarea></div>
   
   <div class="newcomment">
   	 <div class = "newcommentsize">
 	  	 <label class="com">请写下你的观影感受吧~</label><br>
-	     <textarea type="text" name="new-comment" id="my-comment"></textarea><br>
+	     <textarea type="text" name="new-comment" id="my-comment"><%= isChange%></textarea><br>
 	     <button id="comment-sub">提交</button>
   	 </div>
   </div><br>

@@ -15,14 +15,14 @@
 	//查询用户，返回0代表不存在，否则返回其密码，null则是查询失败
 		String s = queryUser("123");
 	//查询测试(按照这个模板就可以拿到数据填进列表)
-*/  List<Map<String,String>> list = queryMovie("2",2);
+*/ /* List<Map<String,String>> list = queryMovie("2",2);
 	String query="*";
 	if(list != null){
 //		for(int i=0; i<list.size(); i++){
 			Map<String,String> map = list.get(0);
 			query += map.get("id") + map.get("name")+"\n";
 //		}
-	}else {query="null";}
+	}else {query="null";}*/
 	
 %>
 <%!
@@ -310,6 +310,5 @@
 <title>database</title>
 </head>
 <body>
-<%=query %>
 </body>
 </html>

@@ -1,0 +1,49 @@
+.detail{
+	max-width:960px;
+	height:350px;
+	margin:0px auto;
+	margin-top:100px;
+}
+
+.plot{
+	max-width:960px;
+	height:200px;
+	margin:0 auto;
+}
+
+.poster{
+	width:200px;
+	height:300px;
+}
+
+.editcomment, .somecomments{
+	max-width:960px;
+	margin:0 auto;
+}
+
+#moviepic{
+	float:left;
+	margin-top:10px;
+}
+
+#movieinfo{
+	float:left;
+	margin-top:10px;
+	margin-left:10px;
+}
+
+#moviename{
+	font-family:"Î¢ÈíÑÅºÚ";
+	font-size:36px;
+}
+
+#editicon{
+	width:20px;
+	height:20px;
+	float:left;
+}
+
+#shortcomment{
+	color:black;
+	text-decoration:none;
+}

@@ -14,13 +14,12 @@
 	int e = updateMovie(2,"pic","图片url");
 	
 	//查询测试(按照这个模板就可以拿到数据填进列表)
-  List<Map<String,String>> list = queryComment(34);
+  List<Map<String,String>> list = movieClass("分类");
 	String query="*";
 	if(list != null){
-		query = "a";
 		for(int i=0; i<list.size(); i++){
 			Map<String,String> map = list.get(i);
-			query += map.get("id") + map.get("content")+"\n";
+			query += map.get("id") + map.get("name")+"\n";
 		}
 	}else {query="null";}
 */	
@@ -135,7 +134,12 @@
 	public List<Map<String,String>> movieClass(String classes){
 		try{
 			Statement stmt=con.createStatement();
-			String sql = "select * from movies where classes=\'" + classes + "\'";
+			String sql = "";
+			if(classes.equals("全部")){
+				sql = "select * from movies";
+			} else {
+				sql = "select * from movies where classes=\'" + classes + "\'";
+			}
 			ResultSet rs = stmt.executeQuery(sql);
 			List<Map<String,String>> list = resultsetToList(rs);
 			stmt.close();
@@ -272,6 +276,6 @@
 <title>database</title>
 </head>
 <body>
-	<%=test %>
+
 </body>
 </html>

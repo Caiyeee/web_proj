@@ -93,6 +93,18 @@
         <input type="file" name="poster" id="movie-post">
       </div>
       <div class="detail">
+      	<label>类别</label>
+      	<select>
+      		<option value="action">动作</option>
+      		<option value="comedy" selected>喜剧</option>
+      		<option value="affectional">爱情</option>
+      		<option value="science">科幻</option>
+      		<option value="suspense">悬疑</option>
+      		<option value="horror">恐怖</option>
+      		<option value="cartoon">动画</option>
+      	</select>
+      </div>
+      <div class="detail">
         <label class="des">电影简介</label>
         <textarea type="text" name="descri" id="movie-descri"></textarea>
       </div>

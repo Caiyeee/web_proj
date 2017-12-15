@@ -5,7 +5,7 @@
 	margin-top:100px;
 }
 
-.plot{
+#plot{
 	max-width:960px;
 	height:200px;
 	margin:0 auto;
@@ -16,7 +16,7 @@
 	height:300px;
 }
 
-.editcomment, .somecomments{
+.editcomment, .somecomments, .newcomment{
 	max-width:960px;
 	margin:0 auto;
 }
@@ -33,17 +33,48 @@
 }
 
 #moviename{
-	font-family:"Î¢ÈíÑÅºÚ";
+	font-family:"å¾®è½¯é›…é»‘";
 	font-size:36px;
 }
 
 #editicon{
 	width:20px;
 	height:20px;
-	float:left;
+	float:right;
 }
 
 #shortcomment{
 	color:black;
 	text-decoration:none;
+	float:right;
+	background:white;
+}
+
+#my-comment{
+	width:500px;
+	height:100px;
+	margin-top:10px;
+	margin-bottom:10px;
+}
+
+.newcommentsize{
+	width:500px;
+	height:160px;
+}
+
+#comment-sub{
+	float:right;
+}
+
+#movieplot{
+	border:0 none;
+	overflow:auto;
+	width:880px;
+	height:200px;
+	resize:none;
+	outline:none;
+}
+
+input{
+	width:500px;
 }

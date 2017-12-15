@@ -1,7 +1,25 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
-  request.setCharacterEncoding("utf-8");
-
+  	request.setCharacterEncoding("utf-8");
+	boolean b = connect();
+	List<Map<String,String>> list = movieClass("kf");
+	String query="*";
+	if(list != null){
+		query = "a";
+		for(int i=0; i<list.size(); i++){
+			Map<String,String> map = list.get(i);
+			query += map.get("id") + map.get("name")+"\n";
+		}
+	}else {query="null";}
+	
+	String tag = "true";
+	String isChange = request.getParameter("tag");
+	if(isChange == null){
+		isChange = "false";
+	}
+	else if(isChange.equals("true")){
+		isChange = "true";
+	}
 %>
 <!DOCTYPE HTML>
 <html>
@@ -13,13 +31,14 @@
   <script type="text/javascript" src="public/js/details.js"></script>
 </head>
 <body>
+  <input type = "hidden" id="tag" value="<%= tag%>"> 
   <!--导航栏-->
   <div class="nav-wrapper">
     <div class="nav-content">
       <img class="logo" src="public/image/hdmovie_32.png">
       <ul>
         <li><a href="index.jsp">首页</a></li>
-        <li><a href="#">关于我们</a></li>
+        <li><a href="tag=<%=tag %>>">关于我们</a></li>
       </ul>
       <div class="login_register">
         <span class="btn_login"><a id="btn_login">登录</a></span>
@@ -30,21 +49,29 @@
   
   <!-- 影片详情 -->
   <div class="detail">
-  	<p id="moviename">怦然心动</p>
+  	<p><span id="moviename">怦然心动 </span>
+  	<form action="details.jsp" method="post">
+  	<a id="shortcomment" href="details.jsp?tag=true">&nbsp;编辑内容</a>
+  	</form>
+  	<span><img id="editicon" src="public/image/editicon.png"></span>
+  	</p>
   	<p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
   	<div id="movieinfo">
-  	<p>导演：</p><br>
-  	<p>主演：</p><br>
-  	<p>上映年份：</p><br>
-  	<p>类别：</p><br>
+  	<p>导演：<input id="director" type="text" value="hhh" readonly="true"></p><br>
+  	<p>主演：<input id="starring" type="text" value="hhh" readonly="true"></p><br>
+  	<p>上映年份：<input id="year" type="text" value="hhh" readonly="true"></p><br>
+  	<p>类别：<input id="movieclass" type="text" value="hhh" readonly="true"></p><br>
   	</div>
   </div>
   
-  <div class="plot">剧情简介：</div>
+  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" readonly="true"><%=test %></textarea></div>
   
-  <div class="editcomment">
-  	<p><img id="editicon" src="public/image/editicon.png"></p>
-  	<a id="shortcomment" href="#">&nbsp;我要写短评</a>
+  <div class="newcomment">
+  	 <div class = "newcommentsize">
+	  	 <label class="com">请写下你的观影感受吧~</label><br>
+	     <textarea type="text" name="new-comment" id="my-comment"></textarea><br>
+	     <button id="comment-sub">提交</button>
+  	 </div>
   </div><br>
   
   <div class="somecomments">
@@ -102,7 +129,10 @@
     </div>
   </div>
 
-
+	<%=b %>
+	<%=query %>
   <script type="text/javascript" src="public/js/details.js"></script>
 </body>
 </html>
+
+<%@ include file="DB.jsp" %>

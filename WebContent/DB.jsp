@@ -2,13 +2,13 @@
          contentType="text/html; charset=utf-8"%>
 <%
 	boolean con = connect();
-/*	//插入测试
-	User user = new User("ye","叶子");
-	Comment com = new Comment(12,123,"comments");
-	Movie movie = new Movie("寻梦环游记","导演","演员",2017,"简介","图片url","分类");
+	//插入测试.插入失败都返回-1，电影和用户如果存在一样的，不插入，返回0
+	User user = new User("啊烨","叶子");
+//	Comment com = new Comment(12,123,"comments");
+	Movie movie = new Movie("寻梦环游","导演","演员",2017,"简介","图片url","分类");
 	int a = insertUser(user);
 	int b = insertMovie(movie);
-	int c = insertComment(com);
+/*	int c = insertComment(com);
 	//删除和更新测试
 	int d = deleteComment(13);
 	int e = updateMovie(2,"pic","图片url");
@@ -23,7 +23,7 @@
 		}
 	}else {query="null";}
 	//查询用户，返回0代表不存在，否则返回其密码，null则是查询失败
-	String s = queryUser("123");*、
+	String s = queryUser("123");*/
 %>
 <%!
 	String test ="test";
@@ -34,7 +34,12 @@
 	public int insertMovie(Movie movie){
 		try{
 			Statement stmt=con.createStatement();
-			String sql = "insert into movies(year,name,director,starring,pic,classes,info) values(" 
+			String sql = "select * from movies where name=\'" + movie.getName() + "\' and director=\'" + movie.getDirector() + "\'";
+			ResultSet exit = stmt.executeQuery(sql);
+			if(exit.next()){
+				return 0;//已经存在名字和导演都一样的电影了
+			}
+			sql = "insert into movies(year,name,director,starring,pic,classes,info) values(" 
 				+ String.valueOf(movie.getYear()) + ",\'" + movie.getName() + "\',\'" + movie.getDirector() + "\',\'" 
 				+ movie.getStarring() + "\',\'"  + movie.getPic() + "\',\'" + movie.getClasses() + "\',\'" + movie.getInfo() + "\')";		
 			int res = stmt.executeUpdate(sql);
@@ -48,14 +53,19 @@
 			return id;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-			return 0;
+			return -1;
 		}
 	}
 	//插入用户
 	public int insertUser(User user){
 		try{
 			Statement stmt=con.createStatement();
-			String sql = "insert into users(name,password) values('" + user.getName() + "\',\'" + user.getPsw() + "\')";
+			String sql = "select * from users where name=\'" + user.getName() + "\'";
+			ResultSet exit = stmt.executeQuery(sql);//如果存在该用户名
+			if(exit.next()){
+				return 0;
+			}
+			sql = "insert into users(name,password) values('" + user.getName() + "\',\'" + user.getPsw() + "\')";
 			int res = stmt.executeUpdate(sql);
 			int id = 0;//取其插入的id
 			if(res>0){
@@ -67,7 +77,7 @@
 			return id;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-			return 0;
+			return -1;
 		}
 	}
 	//插入评论
@@ -87,7 +97,7 @@
 			return id;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
-			return 0;
+			return -1;
 		}
 	}
 	//删除评论
@@ -296,5 +306,7 @@
 </head>
 <body>
 	<%=test %>
+	<%=a %>
+	<%=b %>
 </body>
 </html>

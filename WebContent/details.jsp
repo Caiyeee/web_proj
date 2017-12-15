@@ -1,7 +1,13 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   	request.setCharacterEncoding("utf-8");
-	boolean b = connect();
+	List<Map<String,String>> list = queryMovie("2",2);
+	String query="*";
+	if(list != null){
+		Map<String,String> map = list.get(0);
+		query += map.get("id") + map.get("name")+"\n";
+	}else {query="null";}
+/*	boolean b = connect();
 	List<Map<String,String>> list = movieClass("kf");
 	String query="*";
 	if(list != null){
@@ -10,7 +16,7 @@
 			Map<String,String> map = list.get(i);
 			query += map.get("id") + map.get("name")+"\n";
 		}
-	}else {query="null";}
+	}else {query="null";}*/
 	
 	String tag = "true";
 	String isChange = request.getParameter("tag");
@@ -128,9 +134,6 @@
       </div>
     </div>
   </div>
-
-	<%=b %>
-	<%=query %>
   <script type="text/javascript" src="public/js/details.js"></script>
 </body>
 </html>

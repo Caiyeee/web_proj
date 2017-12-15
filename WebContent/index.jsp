@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   request.setCharacterEncoding("utf-8");
+   
 
 %>
 <!DOCTYPE HTML>
@@ -94,6 +95,7 @@
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
+
   <!--登录框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" onselectstart='return false;'>

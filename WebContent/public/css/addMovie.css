@@ -30,7 +30,7 @@
   margin-right: 10px;
 }
 
-.add-detail .detail input[type="text"] {
+.add-detail .detail input[type="text"], .detail select {
   display: inline-block;
   width: 80%;
   height: 34px;

@@ -26,7 +26,6 @@
 */
 %>
 <%!
-	String test ="test";
 	Connection con;
 	int userId=0, movieId=0, commentId=0;
 

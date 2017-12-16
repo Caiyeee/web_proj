@@ -144,7 +144,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span  id="alert" class="alert">请先登录再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>

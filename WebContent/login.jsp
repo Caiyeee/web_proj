@@ -5,6 +5,7 @@
   String mid = request.getParameter("mid");
   String class_str = request.getParameter("class");
   String searchButton = request.getParameter("searchButton");
+  String from = request.getParameter("from");
   String search = request.getParameter("search");
   System.out.print("searchButton:,"+searchButton);
   System.out.print("search:,"+search);
@@ -15,9 +16,7 @@
 //	  System.out.print("查询");
  // }else {
 	 if(searchButton == null) {
-	  System.out.print("分类");
 	  if(class_str == null) {
-	  	  System.out.print("nulllllllllllll");
 	  	  list = movieClass("全部"); 
 	  } else if(class_str != null && class_str.equals("all")) {
 	     list = movieClass("全部");
@@ -145,7 +144,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span  id="alert" class="alert">请先登录再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>
@@ -236,7 +236,7 @@
   </div>
   <!--登陆框-->
   <div class="ui-mask" id="mask" onselectstart="return false" style="display: block;"></div>
-  <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?mid=<%=mid %>"  onselectstart='return false;' style="display: block;">
+  <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?mid=<%=mid %>&from=<%=from %>"  onselectstart='return false;' style="display: block;">
     <div class="ui-dialog-title" onselectstart="return false;">
       登陆通行证
       <a class="ui-dialog-closebutton"  id="close_login" style="display: none;"></a>

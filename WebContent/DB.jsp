@@ -5,25 +5,25 @@
 	//插入测试.插入失败都返回-1，电影和用户如果存在一样的，不插入，返回0
 //	User user = new User("啊烨","叶子");
 //	Comment com = new Comment(12,123,"comments");
-//	Movie movie = new Movie("寻梦环游","导演","演员",2017,"简介","图片url","分类");
+//	Movie movie = new Movie("柯南","不知道","柯南啊",2000,"柯南的简介","图片url","悬疑");
 //	int a = insertUser(user);
 //	int b = insertMovie(movie);
-/*	int c = insertComment(com);
+//	int c = insertComment(com);
 	//删除和更新测试
-	int d = deleteComment(13);
-	int e = updateMovie(2,"pic","图片url");
+//	int d = deleteComment(13);
+//	int e = updateMovie(2,"pic","图片url");
 	//查询用户，返回0代表不存在，否则返回其密码，null则是查询失败
-		String s = queryUser("123");
+//		String s = queryUser("123");
 	//查询测试(按照这个模板就可以拿到数据填进列表)
-*/ /* List<Map<String,String>> list = queryMovie("2",2);
+/* 	 List<Map<String,String>> list = queryComment(123);
 	String query="*";
 	if(list != null){
-//		for(int i=0; i<list.size(); i++){
+		for(int i=0; i<list.size(); i++){
 			Map<String,String> map = list.get(0);
-			query += map.get("id") + map.get("name")+"\n";
-//		}
-	}else {query="null";}*/
-	
+			query += map.get("user_id") + map.get("content")+"\n";
+		}
+	}else {query="null";}
+*/
 %>
 <%!
 	String test ="test";
@@ -32,14 +32,16 @@
 
 	//插入电影
 	public int insertMovie(Movie movie){
+		System.out.println("insert");
 		try{
+			if(movie==null) return 0;
 			Statement stmt=con.createStatement();
-			String sql = "select * from movies where name=\'" + movie.getName() + "\' and director=\'" + movie.getDirector() + "\'";
-			ResultSet exit = stmt.executeQuery(sql);
-			if(exit.next()){
-				return 0;//已经存在名字和导演都一样的电影了
-			}
-			sql = "insert into movies(year,name,director,starring,pic,classes,info) values(" 
+//			String sql = "select * from movies where name=\'" + movie.getName() + "\' and director=\'" + movie.getDirector() + "\'";
+//			ResultSet exit = stmt.executeQuery(sql);
+//			if(exit.next()){
+//				return 0;//已经存在名字和导演都一样的电影了
+//			}
+			String sql = "insert into movies(year,name,director,starring,pic,classes,info) values(" 
 				+ String.valueOf(movie.getYear()) + ",\'" + movie.getName() + "\',\'" + movie.getDirector() + "\',\'" 
 				+ movie.getStarring() + "\',\'"  + movie.getPic() + "\',\'" + movie.getClasses() + "\',\'" + movie.getInfo() + "\')";		
 			int res = stmt.executeUpdate(sql);
@@ -52,7 +54,8 @@
 			stmt.close();
 			return id;
 		}catch(Exception e){
-			System.out.println(e.getMessage());
+			e.printStackTrace();
+			System.out.println("error:"+e.getMessage());
 			return -1;
 		}
 	}
@@ -185,18 +188,34 @@
 			return null;
 		}
 	}
+	//通过用户id查询用户名
+	public String queryNameById(String user_id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from users where id=" + user_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				String s = rs.getString("name");
+				stmt.close();
+				return s;
+			} else {
+				stmt.close();
+				return null;
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//查询用户
-	public String queryUser(String name){
+	public List<Map<String,String>> queryUser(String name){
 		try{
 			Statement stmt=con.createStatement();
 			String sql = "select * from users where name=\'" + name + "\'";
 			ResultSet rs = stmt.executeQuery(sql);
-			if(rs.next()){
-				return rs.getString("password");		
-			} else {
-				stmt.close();
-				return "0";
-			}
+			List<Map<String,String>> list = resultsetToList(rs);
+			stmt.close();
+			return list;
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 			return null;
@@ -252,6 +271,10 @@
 			this.pic = pic;
 			this.classes = classes;
 		}
+		public Movie(){
+			this.name = "temp";
+			this.director = "temp";
+		}
 		int getId(){return this.id;}
 		int getYear(){return this.year;}
 		String getName(){return this.name;}
@@ -302,13 +325,3 @@
 		return false;
 	} 
 %>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>database</title>
-</head>
-<body>
-</body>
-</html>

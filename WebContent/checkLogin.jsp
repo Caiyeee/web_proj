@@ -4,18 +4,30 @@
   String username = request.getParameter("username");
   String password = request.getParameter("password");
   String mid = request.getParameter("mid");
-  String s = queryUser(username);  
+  List<Map<String,String>> list = queryUser(username);
+  String s = "";
+  String user_id = "";
+  if(list.size()==0){
+	  user_id = null;
+	  s = null;
+  } 
+  else{
+	  user_id = list.get(0).get("id");
+	  s =  String.valueOf(list.get(0).get("password"));
+  }
+
   System.out.print("密码是:"+s);
-  System.out.print("用户名："+ username + "棉麻："+password);
-  if(s == null || s.equals("0") || !s.equals(password)) {
-	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password + "&mid=" + mid);
+  System.out.print("用户名："+ username + "密码："+password);
+  if(s == null || !s.equals(password)) {
+	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password + "&mid=" + mid + "&user_id=" + user_id);
   }else if(s != null && s.equals(password)){
     session.setAttribute("username", username);
-    // session.setAttribute("userId", )
+    session.setAttribute("userId", user_id);
     if(mid == null || mid.equals("null")) {
     	response.sendRedirect("index.jsp");
     }
-    else
-      response.sendRedirect("details.jsp?mid="+mid);
+    else {
+    	response.sendRedirect("details.jsp?mid="+mid + "&user_id=" + user_id);
+    } 
   }
 %>

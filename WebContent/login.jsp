@@ -6,15 +6,13 @@
   String class_str = request.getParameter("class");
   String searchButton = request.getParameter("searchButton");
   String from = request.getParameter("from");
+  String display = from.equals("add") ? "inline" : "none";
   String search = request.getParameter("search");
   System.out.print("searchButton:,"+searchButton);
   System.out.print("search:,"+search);
- // boolean b = connect();
+  
   List<Map<String,String>> list = null;
- // if(searchButton != null || searchButton != "" ) {
-//	  list = queryMovie(search);
-//	  System.out.print("查询");
- // }else {
+
 	 if(searchButton == null) {
 	  if(class_str == null) {
 	  	  list = movieClass("全部"); 
@@ -44,35 +42,6 @@
   }else {
 	  System.out.print("class_str "+class_str);
   }
-
-
-  // 全部电影
-
-
-  // 动作
- // List<Map<String,String>> actionList = movieClass("动作");
- // String act_str = request.getParameter("class");
-
-  // 喜剧
- // List<Map<String,String>> laughList = movieClass("喜剧");
- // String laug_str =  request.getParameter("class");
-
-  // 爱情
- // List<Map<String,String>> loveList = movieClass("爱情");
- // String lov_str =  request.getParameter("class");
-  // 科幻
- // List<Map<String,String>> scList = movieClass("科幻");
- // String sc_str =  request.getParameter("class");
-  // 悬疑
- // List<Map<String,String>> supList = movieClass("悬疑");
- // String sup_str =  request.getParameter("class");
-  // 恐怖
- // List<Map<String,String>> afraidList = movieClass("恐怖");
- // String afr_str =  request.getParameter("class");
-  // 动画
- // List<Map<String,String>> cartonList = movieClass("动画");
- //  String cartstr =  request.getParameter("class");
-
 
 %>
 <!DOCTYPE HTML>
@@ -145,7 +114,7 @@
   <div class="content-wrapper clearfx">
     <div class="topic">
       <p>电影 <input type="button" value="添加" id="add" ></input>
-      	<span  id="alert" class="alert">请先登录再添加电影</span> </p>
+      	<span style="display:<%=display %>"  id="alert" class="alert">请先登录再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>

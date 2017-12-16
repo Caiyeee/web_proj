@@ -5,8 +5,11 @@
 <%@ page import="org.apache.commons.fileupload.servlet.*" %>
 <%@ include file = "DB.jsp" %>
 <%
-  request.setCharacterEncoding("utf-8");
-
+ 	request.setCharacterEncoding("utf-8");
+	
+	if(session.getAttribute("username")==null)
+		response.sendRedirect("index.jsp");
+		
 	Movie newMovie = new Movie();
 	if(request.getMethod().equalsIgnoreCase("post")){	
 		boolean isMultipart = ServletFileUpload.isMultipartContent(request);

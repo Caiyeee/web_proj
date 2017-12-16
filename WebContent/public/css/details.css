@@ -78,6 +78,7 @@
 	height:100px;
 	margin-top:10px;
 	margin-bottom:10px;
+	resize:none;
 }
 
 .newcommentsize{
@@ -123,4 +124,8 @@
 
 #deletecomment{
 	float:right;
+}
+
+.somecomments{
+	overflow:
 }

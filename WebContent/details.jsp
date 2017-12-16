@@ -14,6 +14,8 @@
 	String moviepost = "";
 	String isLogin = "";
 	Object movieuser = session.getAttribute("username");
+	Object getmovieuserid = session.getAttribute("user_id");
+	
 	if(movieuser == null)
 		isLogin = "false";
 	else
@@ -157,7 +159,7 @@
   <div class="newcomment">
   	 <div class = "newcommentsize">
 	  	 <label class="com">请写下你的观影感受吧</label><br>
-	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%></textarea><br>
+	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%><%= getmovieuserid%></textarea><br>
 	     <input id="comment-sub" type="submit" value="提交" name="submitcomment">
   	 </div>
   </div><br>

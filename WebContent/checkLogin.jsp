@@ -6,7 +6,7 @@
   String mid = request.getParameter("mid");
   String s = queryUser(username);  
   System.out.print("密码是:"+s);
-  System.out.print("用户名："+ username + "棉麻："+password);
+  System.out.print("用户名："+ username + "密码："+password);
   if(s == null || s.equals("0") || !s.equals(password)) {
 	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password + "&mid=" + mid);
   }else if(s != null && s.equals(password)){

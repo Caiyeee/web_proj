@@ -116,4 +116,32 @@ oBody.onmouseout = function(){/*鼠标移出，重新调用定时器，轮播图
     g('dialog-Login').style.display = 'block';
   }
 
+//注册框判断
+  var username = g('regis_username');
+  var password = g('regis_password');
+  var register_form = g('dialog-register');
+  var to_register = g('to_register');
+  var error = g('error');
+
+  to_register.onclick = function() {
+    if(username.value == "" || password.value == "" || password.value.length < 2) {
+       error.style.display = "block";
+       return false;
+    }
+  }
+
+//登录框判断
+  var login_username = g('login_username');
+  var login_password = g('login_password');
+  var login_register_form = g('dialog-Login');
+  var to_login = g('to_login');
+  var error1 = g('error1');
+
+  to_login.onclick = function() {
+    if(login_password.value.length < 2) {
+       error1.style.display = "block";
+       return false;
+    }
+  }
+
 

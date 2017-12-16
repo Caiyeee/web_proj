@@ -5,12 +5,16 @@
   String password = request.getParameter("password");
   String mid = request.getParameter("mid");
   String s = queryUser(username);  
-  if(s == null || s.equals("0")) {
-	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password);
-  }else {
+  System.out.print("密码是:"+s);
+  System.out.print("用户名："+ username + "棉麻："+password);
+  if(s == null || s.equals("0") || !s.equals(password)) {
+	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password + "&mid=" + mid);
+  }else if(s != null && s.equals(password)){
     session.setAttribute("username", username);
-    if(mid == null)
-      response.sendRedirect("index.jsp");
+    // session.setAttribute("userId", )
+    if(mid == null || mid.equals("null")) {
+    	response.sendRedirect("index.jsp");
+    }
     else
       response.sendRedirect("details.jsp?mid="+mid);
   }

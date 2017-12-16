@@ -253,6 +253,7 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_regist">立即注册</a>
       </div>
+      <div id="error1" style="display: none; color: red; text-align: center;">密码不能为中文且必须2位数以上</div>
     </div>
   </form>
   <!--注册框-->
@@ -274,7 +275,7 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_login">立即登录</a>
       </div>
-      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空</div>
+      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空且密码长度不能小于2</div>
     </div>
   </form>
 

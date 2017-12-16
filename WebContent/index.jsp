@@ -3,31 +3,48 @@
 <%
   request.setCharacterEncoding("utf-8");
   String class_str = request.getParameter("class");
+  String searchButton = request.getParameter("searchButton");
+  String search = request.getParameter("search");
+  System.out.print("searchButton:,"+searchButton);
+  System.out.print("search:,"+search);
  // boolean b = connect();
-  System.out.print("class_str " + class_str);
- // if(class_str == null ) {
-	  List<Map<String,String>> list = movieClass("全部");
- // } else if(class_str.equals("all")) {
- //   List<Map<String,String>> list = movieClass("全部");
- // } else if(class_str.equals("act")) {
- //   List<Map<String,String>> list = movieClass("动作");
- // } else if(class_str.equals("laug")) {
- //   List<Map<String,String>> list = movieClass("喜剧");
- // } else if(class_str.equals("lov")) {
- //   List<Map<String,String>> list = movieClass("爱情");
- // } else if(class_str.equals("sc")) {
- //   List<Map<String,String>> list = movieClass("科幻");
- // } else if(class_str.equals("sup")) {
- //   List<Map<String,String>> list = movieClass("悬疑");
- // } else if(class_str.equals("cart")) {
- //   List<Map<String,String>> list = movieClass("动画");
- // }
+  List<Map<String,String>> list = null;
+ // if(searchButton != null || searchButton != "" ) {
+//	  list = queryMovie(search);
+//	  System.out.print("查询");
+ // }else {
+	 if(searchButton == null) {
+	  System.out.print("分类");
+	  if(class_str == null) {
+	  	  System.out.print("nulllllllllllll");
+	  	  list = movieClass("全部"); 
+	  } else if(class_str != null && class_str.equals("all")) {
+	     list = movieClass("全部");
+	   } else if(class_str.equals("act")) {
+	     list = movieClass("动作");
+	    } else if(class_str.equals("laug")) {
+	   list = movieClass("喜剧");
+	   } else if(class_str.equals("lov")) {
+	     list = movieClass("爱情");
+	    } else if(class_str.equals("sc")) {
+	     list = movieClass("科幻");
+	    } else if(class_str.equals("sup")) {
+	     list = movieClass("悬疑");
+	    } else if(class_str.equals("cart")) {
+	     list = movieClass("动画");
+	    }	  
+    } else {
+    	list = queryMovie(search);
+ 	    System.out.print("查询");
+    }
+  
 
-    //      if(list == null ) {
-    //    	  System.out.print("List,null");
-    //      } else {
-    //    	  System.out.print("qwwwwww"); 
-    //      }
+  if(list== null) {
+	  System.out.print("list null:"+class_str);
+  }else {
+	  System.out.print("class_str "+class_str);
+  }
+
 
   // 全部电影
 
@@ -129,31 +146,85 @@
     <div class="topic">
       <p>电影</p>
       <ul class="class">
-        <a href="index.jsp?class=all"><li class="selected" >全部</li></a>
-        <a href="index.jsp?class=act">
-          <li>动作</li>
+        <a href="index.jsp?class=all">
+          <%if(class_str == null|| class_str.equals("all")){ %>
+            <li class="selected">全部</li>
+           <%}else{ %>
+             <li>全部</li>
+            <%}%>
         </a>
-        <a href="index.jsp?class=laug"><li>喜剧</li></a>
-        <a href="index.jsp?class=lov"><li>爱情</li></a>
-        <a href="index.jsp?class=sc"><li>科幻</li></a>
-        <a href="index.jsp?class=sup"><li>悬疑</li></a>
-        <a href="index.jsp?class=afr"><li>恐怖</li></a>
-        <a href="index.jsp?class=cart"><li>动画</li></a>
+        <a href="index.jsp?class=act">
+          <% 
+            if(class_str != null && class_str.equals("act")){ %>
+            <li class="selected">动作</li>
+           <%}else{ %>
+             <li>动作</li>
+            <%}%>
+        </a>
+        <a href="index.jsp?class=laug">
+          <%if( class_str != null && class_str.equals("laug")){ %>
+             <li class="selected">喜剧</li>
+           <%}else{ %>
+             <li>喜剧</li>
+           <%}%>
+        </a>
+        <a href="index.jsp?class=lov">
+          <%if(class_str != null && class_str.equals("lov")){ %>
+            <li class="selected">爱情</li>
+           <%}else{ %>
+             <li>爱情</li>
+            <%}%>
+        </a>
+        <a href="index.jsp?class=sc">
+          <%if( class_str != null && class_str.equals("sc")){ %>
+            <li class="selected">科幻</li>
+           <%}else{ %>
+             <li>科幻</li>
+            <%}%>
+        </a>
+        <a href="index.jsp?class=sup">
+          <%if( class_str != null && class_str.equals("sup")){ %>
+            <li class="selected">悬疑</li>
+           <%}else{ %>
+             <li>悬疑</li>
+            <%}%>
+        </a>
+        <a href="index.jsp?class=afr">
+          <%if(class_str != null && class_str.equals("afr")){ %>
+            <li class="selected">恐怖</li>
+           <%}else{ %>
+             <li>恐怖</li>
+            <%}%>
+        </a>
+        <a href="index.jsp?class=cart">
+          <%if(class_str != null && class_str.equals("cart")){ %>
+            <li class="selected">卡通</li>
+           <%}else{ %>
+             <li>卡通</li>
+            <%}%>
+        </a>
       </ul>
       <div class="search">
-        <input type="text" name="search" autocomplete="off" placeholder="搜索影片" class="text">
-        <input type="button" name="searchButton" id="searchButton" class="search-button">
+        <form action="index.jsp?sear=1">
+	        <input type="text" name="search" autocomplete="off" placeholder="搜索影片" class="text">
+	        <input type="submit" name="searchButton" id="searchButton" class="search-button" value="">
+        </form>
       </div>
     </div>
     <div class="content clearfx">
       <% 
-
-         for(int i = 0; i<list.size();i++) {%>
+        System.out.print("进去了");
+         if(list != null && list.size() != 0) {
+           System.out.print("list不为空 " + list.size());
+          for(int i = 0; i<list.size();i++) {%>
         <div class="movie-item">
            <a href="details.jsp?mid="+<%=list.get(i).get("id")%>><img src="<%=list.get(i).get("pic")%>" width=100% height=100%></a>
            <a href="details.jsp?mid="+<%=list.get(i).get("id") %>><p><%=list.get(i).get("name")%></p></a>
          </div>
-      <%}%>
+      <%} } else { 
+             System.out.print("站务吗"); %>
+          <p>暂无内容</p>
+       <%}%>
     </div>
   </div>
   <!--footer-->

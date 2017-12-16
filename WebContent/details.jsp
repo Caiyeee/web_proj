@@ -8,6 +8,7 @@
 	String movieyear = "";
 	String movieclass = "";
 	String movieinfo = "";
+	String moviecomment = "";
 	int movieid = Integer.parseInt("2");
 	
 	boolean b = connect();
@@ -30,44 +31,55 @@
 		movieinfo = "null";
 	}
 	
+	List<Map<String,String>> commentlist = queryComment(movieid);
+	
 	String editstr = "";
 	String isChange = "";
 	String isRead = "";
-	String sub = "";
+	String sub1 = "";
+	String sub2 = "";
 	
-	if(!request.getMethod().equalsIgnoreCase("post"))
-	{
-		editstr = "编辑内容";
-		isChange = "false";
-		isRead = "";
-	}
-	else{
-		sub = request.getParameter("submit1");
-		if(sub.equals("编辑内容")){
-			editstr = "修改完成";
-			isChange = "true";
-			isRead = "";
-		}
-		else if(sub.equals("修改完成")){
-			moviename = request.getParameter("name");
-			moviedirector = request.getParameter("director");
-			moviestarring = request.getParameter("starring");
-			movieyear = request.getParameter("year");
-			movieclass = request.getParameter("classes");
-			movieinfo = request.getParameter("info");
-			updateMovie(movieid, "name", moviename);
-			updateMovie(movieid, "director", moviedirector);
-			updateMovie(movieid, "starring", moviestarring);
-			updateMovie(movieid, "year", movieyear);
-			updateMovie(movieid, "classes", movieclass);
-			updateMovie(movieid, "info", movieinfo);
-			editstr = "编辑内容";
-			isChange = "false";
-			isRead = "readonly='true'";
-		}
-	}
-
+	editstr = "编辑内容";
+	isChange = "false";
+	isRead = "readonly='true'";
 	
+	if(request.getMethod().equalsIgnoreCase("post")){
+		sub1 = request.getParameter("submitedit");
+		sub2 = request.getParameter("submitcomment");
+		if(sub1 != null){
+			if(sub1.equals("编辑内容")){
+				editstr = "修改完成";
+				isChange = "true";
+				isRead = "";
+			}
+			else if(sub1.equals("修改完成")){
+				moviename = request.getParameter("name");
+				moviedirector = request.getParameter("director");
+				moviestarring = request.getParameter("starring");
+				movieyear = request.getParameter("year");
+				movieclass = request.getParameter("classes");
+				movieinfo = request.getParameter("info");
+				updateMovie(movieid, "name", moviename);
+				updateMovie(movieid, "director", moviedirector);
+				updateMovie(movieid, "starring", moviestarring);
+				updateMovie(movieid, "year", movieyear);
+				updateMovie(movieid, "classes", movieclass);
+				updateMovie(movieid, "info", movieinfo);
+				editstr = "编辑内容";
+				isChange = "false";
+				isRead = "readonly='true'";
+			}
+		}
+		else if(sub2 != null)
+		{
+			if(sub2.equals("提交")){
+				moviecomment = request.getParameter("new-comment");
+				Comment comment = new Comment(20, movieid, moviecomment);
+				insertComment(comment);
+				moviecomment = "";
+			}
+		}
+	}
 %>
 <!DOCTYPE HTML>
 <html>
@@ -98,31 +110,48 @@
   </div>
   
   <!-- 影片详情 -->
-  <div class="detail">
-  	<p><input id="moviename" name="name" value=<%= moviename %>></p>
-  	<input id="shortcomment" type="submit" value=<%= editstr%> name="submit1">
-  	<span><img id="editicon" src="public/image/editicon.png"></span>
-  	<p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
-  	<div id="movieinfo">
-  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> name="director"></p><br>
-  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> name="starring"></p><br>
-  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> name="year"></p><br>
-  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> name="classes"></p><br>
-  	</div>
+  <div class = "forheight">
+  <div class = "bk">
+  <div class = "forcolor"></div>
+    <div class="detail">
+      <br>
+  	  <p><input id="moviename" name="name" value=<%= moviename %>></p>
+  	  <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
+  	  <span><img id="editicon" src="public/image/editicon.png"></span>
+   	  <p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
+  	  <div id="movieinfo">
+  	  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> name="director"></p><br>
+  	  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> name="starring"></p><br>
+  	  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> name="year"></p><br>
+  	  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> name="classes"></p><br>
+  	  </div>
+   	</div>
+  </div>
   </div>
   
+  <br>
   <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" <%= isRead%> name=info><%= movieinfo%></textarea></div>
   
   <div class="newcomment">
   	 <div class = "newcommentsize">
-	  	 <label class="com">请写下你的观影感受吧~</label><br>
-	     <textarea type="text" name="new-comment" id="my-comment"></textarea><br>
-	     <button id="comment-sub">提交</button>
+	  	 <label class="com">请写下你的观影感受吧</label><br>
+	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%></textarea><br>
+	     <input id="comment-sub" type="submit" value="提交" name="submitcomment">
   	 </div>
   </div><br>
   
   <div class="somecomments">
-  		<p id="comtitle">怦然心动的短评</p>
+  		<p id="comtitle">怦然心动的短评</p><br>
+  		<%String getcomments="";
+  		 if(commentlist != null){
+  			for(int i=0; i<commentlist.size(); i++){
+  				getcomments="";
+  				Map<String,String> commentmap = commentlist.get(i);
+  				getcomments += commentmap.get("user_id") + commentmap.get("content");%>
+  				<div><%= getcomments%></div>
+  				<br>
+  				<% }%>
+  		<% }else {getcomments="null";} %>
   </div>
  
   <!--footer-->

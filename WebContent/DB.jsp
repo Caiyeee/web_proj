@@ -171,13 +171,14 @@
 			Statement stmt=con.createStatement();
 			String sql = "select * from comments where movie_id=" + String.valueOf(movie_id);
 			ResultSet rs = stmt.executeQuery(sql);
-			if(rs.getRow()==0){
-				stmt.close();
-				return null;	
-			} else {
+			if(rs.next()){
+				rs.previous();
 				List<Map<String,String>> list = resultsetToList(rs);
 				stmt.close();
 				return list;
+			} else {
+				stmt.close();
+				return null;
 			}
 		}catch(Exception e){
 			System.out.println(e.getMessage());

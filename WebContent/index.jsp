@@ -1,8 +1,62 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
+<%@ include file="DB.jsp" %>
 <%
   request.setCharacterEncoding("utf-8");
-  
-  /*连接数据库*/
+  String class_str = request.getParameter("class");
+ // boolean b = connect();
+  System.out.print("class_str " + class_str);
+ // if(class_str == null ) {
+	  List<Map<String,String>> list = movieClass("全部");
+ // } else if(class_str.equals("all")) {
+ //   List<Map<String,String>> list = movieClass("全部");
+ // } else if(class_str.equals("act")) {
+ //   List<Map<String,String>> list = movieClass("动作");
+ // } else if(class_str.equals("laug")) {
+ //   List<Map<String,String>> list = movieClass("喜剧");
+ // } else if(class_str.equals("lov")) {
+ //   List<Map<String,String>> list = movieClass("爱情");
+ // } else if(class_str.equals("sc")) {
+ //   List<Map<String,String>> list = movieClass("科幻");
+ // } else if(class_str.equals("sup")) {
+ //   List<Map<String,String>> list = movieClass("悬疑");
+ // } else if(class_str.equals("cart")) {
+ //   List<Map<String,String>> list = movieClass("动画");
+ // }
+
+    //      if(list == null ) {
+    //    	  System.out.print("List,null");
+    //      } else {
+    //    	  System.out.print("qwwwwww"); 
+    //      }
+
+  // 全部电影
+
+
+  // 动作
+ // List<Map<String,String>> actionList = movieClass("动作");
+ // String act_str = request.getParameter("class");
+
+  // 喜剧
+ // List<Map<String,String>> laughList = movieClass("喜剧");
+ // String laug_str =  request.getParameter("class");
+
+  // 爱情
+ // List<Map<String,String>> loveList = movieClass("爱情");
+ // String lov_str =  request.getParameter("class");
+  // 科幻
+ // List<Map<String,String>> scList = movieClass("科幻");
+ // String sc_str =  request.getParameter("class");
+  // 悬疑
+ // List<Map<String,String>> supList = movieClass("悬疑");
+ // String sup_str =  request.getParameter("class");
+  // 恐怖
+ // List<Map<String,String>> afraidList = movieClass("恐怖");
+ // String afr_str =  request.getParameter("class");
+  // 动画
+ // List<Map<String,String>> cartonList = movieClass("动画");
+ //  String cartstr =  request.getParameter("class");
+
+
 %>
 <!DOCTYPE HTML>
 
@@ -71,25 +125,36 @@
     <div class="next arrow">&gt;</div>
   </div>
   <!--电影内容-->
-  <div class="content-wrapper">
+  <div class="content-wrapper clearfx">
     <div class="topic">
       <p>电影</p>
       <ul class="class">
-        <li class="selected">全部</li>
-        <li>动作</li>
-        <li>喜剧</li>
-        <li>爱情</li>
-        <li>科幻</li>
-        <li>悬疑</li>
-        <li>恐怖</li>
-        <li>动画</li>
+        <a href="index.jsp?class=all"><li class="selected" >全部</li></a>
+        <a href="index.jsp?class=act">
+          <li>动作</li>
+        </a>
+        <a href="index.jsp?class=laug"><li>喜剧</li></a>
+        <a href="index.jsp?class=lov"><li>爱情</li></a>
+        <a href="index.jsp?class=sc"><li>科幻</li></a>
+        <a href="index.jsp?class=sup"><li>悬疑</li></a>
+        <a href="index.jsp?class=afr"><li>恐怖</li></a>
+        <a href="index.jsp?class=cart"><li>动画</li></a>
       </ul>
       <div class="search">
         <input type="text" name="search" autocomplete="off" placeholder="搜索影片" class="text">
         <input type="button" name="searchButton" id="searchButton" class="search-button">
       </div>
     </div>
-    <div class="content"></div>
+    <div class="content clearfx">
+      <% 
+
+         for(int i = 0; i<list.size();i++) {%>
+        <div class="movie-item">
+           <a href="details.jsp?mid="+<%=list.get(i).get("id")%>><img src="<%=list.get(i).get("pic")%>" width=100% height=100%></a>
+           <a href="details.jsp?mid="+<%=list.get(i).get("id") %>><p><%=list.get(i).get("name")%></p></a>
+         </div>
+      <%}%>
+    </div>
   </div>
   <!--footer-->
   <div class="footer-wrapper">
@@ -145,4 +210,4 @@
   <script type="text/javascript" src="public/js/index.js"></script>
 </body>
 </html>
-<%@ include file="DB.jsp" %>
+

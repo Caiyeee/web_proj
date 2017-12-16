@@ -1,4 +1,4 @@
-/*nav导航栏*/
+/*nav瀵艰埅鏍�*/
 .nav-wrapper {
   position: fixed;
   top: 0;
@@ -38,12 +38,12 @@
 .login_register {
   float: right;
 }
-.btn_login, .btn_regis {
+.btn_login, .btn_regis, .btn_logout {
   padding-left: 10px;
   height: 40px;
   line-height: 40px;
 }
-.btn_login:hover, .btn_regis:hover {
+.btn_login:hover, .btn_regis:hover, .btn_logout:hover {
   cursor: pointer;
 }
 
@@ -116,7 +116,7 @@
 /*content*/
 .content-wrapper {
   width: 960px;
-  height: 500px;
+  height: auto;
   margin: 10px auto;
 }
 .content-wrapper .topic {
@@ -147,6 +147,9 @@
 }
 .topic .class li:hover {
   background: #eee;
+}
+.topic a:link, .topic a:visited {
+	color: #333;
 }
 .topic .selected {
   background: #4b8ccb;
@@ -184,8 +187,32 @@ input {
       background: url(//static1.mtime.cn/20170731144154/images/2014/topbar.png) no-repeat -155px -106px;
       cursor: pointer;
 }
-
-
+.content {
+  margin-top: 10px;
+}
+.movie-item {
+  box-shadow: 0 0 5px #ddd;
+  padding: 10px;
+  padding-bottom: 28px;
+  width: 180px;
+  height: 170px;
+   /* border: 1px solid red; */
+   margin: 20px;
+   float: left;
+}
+.movie-item p {
+	text-align: center;
+	margin-top: 5px;
+	font-size: 13px;
+	color: #333;
+	cursor: pointer;
+}
+a {
+	text-decoration: none;
+}
+.movie-item a:link, .movie-item a:visited {
+	color: #333;
+}
 
 /**ui-dialog login and register**/
 .ui-dialog {
@@ -298,4 +325,13 @@ input {
   height: 20px;
   line-height: 20px;
   color: rgb(158, 177, 194);
+}
+
+.clearfx{
+	zoom:1;
+}
+.clearfx:after{
+	content:"";
+	display:block;
+	clear:both;
 }

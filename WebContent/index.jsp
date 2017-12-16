@@ -150,8 +150,8 @@
 
          for(int i = 0; i<list.size();i++) {%>
         <div class="movie-item">
-           <a href="details.jsp?mid="+<%=list.get(i).get("id")%>><img src="<%=list.get(i).get("pic")%>" width=100% height=100%></a>
-           <a href="details.jsp?mid="+<%=list.get(i).get("id") %>><p><%=list.get(i).get("name")%></p></a>
+           <a href="details.jsp?mid=<%=list.get(i).get("id") %>"><img src="<%=list.get(i).get("pic")%>" width=100% height=100%></a>
+           <a href="details.jsp?mid=<%=list.get(i).get("id") %>"><p><%=list.get(i).get("name")%></p></a>
          </div>
       <%}%>
     </div>

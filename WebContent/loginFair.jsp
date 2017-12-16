@@ -5,7 +5,6 @@
   String password = request.getParameter("pass");  
 %>
 <!DOCTYPE HTML>
-<!DOCTYPE html>
 <html>
 <head>
   <title>电影网站首页</title>

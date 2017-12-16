@@ -2,6 +2,8 @@
 <%
   	request.setCharacterEncoding("utf-8");
 
+	String getmovieid = request.getParameter("mid");
+
 	String moviename = "";
 	String moviedirector = "";
 	String moviestarring = "";
@@ -9,10 +11,12 @@
 	String movieclass = "";
 	String movieinfo = "";
 	String moviecomment = "";
-	int movieid = Integer.parseInt("2");
+	String moviepost = "";
+	
+	int movieid = Integer.parseInt(getmovieid);
 	
 	boolean b = connect();
-	List<Map<String,String>> list = queryMovie("2",2);
+	List<Map<String,String>> list = queryMovie(getmovieid,2);
 	if(list != null){
 		Map<String,String> map = list.get(0);
 		moviename += map.get("name");
@@ -21,6 +25,7 @@
 		movieyear += map.get("year");
 		movieclass += map.get("classes");
 		movieinfo += map.get("info");
+		moviepost += map.get("pic");
 	}
 	else {
 		moviename = "null";
@@ -91,7 +96,7 @@
   <script type="text/javascript" src="public/js/details.js"></script>
 </head>
 <body>
-  <form action="details.jsp" method="post">
+  <form action="details.jsp?mid=<%= getmovieid%>" method="post">
   <!-- 向js文件传递信息 -->
   <input type = "hidden" id="tag" value="<%= isChange%>"> 
   <!--导航栏-->
@@ -118,7 +123,7 @@
   	  <p><input id="moviename" name="name" value=<%= moviename %>></p>
   	  <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
   	  <span><img id="editicon" src="public/image/editicon.png"></span>
-   	  <p id="moviepic"><img class="poster" src="public/image/flipped.jpeg"></p>
+   	  <p id="moviepic"><img class="poster" src=<%= moviepost%>></p>
   	  <div id="movieinfo">
   	  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> name="director"></p><br>
   	  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> name="starring"></p><br>
@@ -141,7 +146,7 @@
   </div><br>
   
   <div class="somecomments">
-  		<p id="comtitle">怦然心动的短评</p><br>
+  		<p id="comtitle"><%= moviename%>的短评</p><br>
   		<%String getcomments="";
   		 if(commentlist != null){
   			for(int i=0; i<commentlist.size(); i++){

@@ -16,7 +16,6 @@
 	 if(searchButton == null) {
 	  System.out.print("分类");
 	  if(class_str == null) {
-	  	  System.out.print("nulllllllllllll");
 	  	  list = movieClass("全部"); 
 	  } else if(class_str != null && class_str.equals("all")) {
 	     list = movieClass("全部");
@@ -144,7 +143,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span  id="alert" class="alert">请先登陆再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>
@@ -253,6 +253,7 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_regist">立即注册</a>
       </div>
+      <div id="error1" style="display: none; color: red; text-align: center;">密码不能为中文且必须2位数以上</div>
     </div>
   </form>
   <!--注册框-->
@@ -274,11 +275,23 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_login">立即登录</a>
       </div>
-      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空</div>
+      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空且密码长度不能小于2</div>
     </div>
   </form>
 
   <script type="text/javascript" src="public/js/index.js"></script>
+  <script language="JavaScript">
+  //对添加按钮的监听
+  	var addMovie = document.getElementById('add');
+  	addMovie.onclick = function() { 	
+ 		var ses = "<%=session.getAttribute("username")%>";
+ 		if(ses!="null"){  	
+ 			window.location.href = "addMovie.jsp";
+  		}else{
+  			document.getElementById('alert').style.display = 'inline';
+  		}
+  	}
+ </script>
 </body>
 </html>
 

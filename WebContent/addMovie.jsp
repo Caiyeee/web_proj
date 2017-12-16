@@ -1,8 +1,9 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   request.setCharacterEncoding("utf-8");
-  // Movie movie = new Movie(name,)
-
+  //处理上传的图片
+  
+// <button id="movie_admin">录入</button>
 %>
 <!DOCTYPE html>
 <html>
@@ -67,11 +68,12 @@
     <div class="next arrow">&gt;</div>
   </div>
 
-  <div class="add-content">
+	<!--增加电影的表单-->
+  <div class="add-content" >
     <div class="add-topic">
       <p>电影录入页</p>
     </div>
-    <div class="add-detail">
+    <form class="add-detail" action="details.jsp" method="post" enctype="multipart/form-data">
       <div class="detail">
         <label>电影名称</label>
         <input type="text" name="movieName" id="movie-name">
@@ -94,22 +96,22 @@
       </div>
       <div class="detail">
       	<label>类别</label>
-      	<select>
-      		<option value="action">动作</option>
-      		<option value="comedy" selected>喜剧</option>
-      		<option value="affectional">爱情</option>
-      		<option value="science">科幻</option>
-      		<option value="suspense">悬疑</option>
-      		<option value="horror">恐怖</option>
-      		<option value="cartoon">动画</option>
+      	<select name="classes">
+      		<option value="动作" selected>动作</option>
+      		<option value="喜剧" >喜剧</option>
+      		<option value="爱情">爱情</option>
+      		<option value="科幻">科幻</option>
+      		<option value="悬疑">悬疑</option>
+      		<option value="恐怖">恐怖</option>
+      		<option value="动画">动画</option>
       	</select>
       </div>
       <div class="detail">
         <label class="des">电影简介</label>
         <textarea type="text" name="descri" id="movie-descri"></textarea>
       </div>
-    </div>
-    <button id="movie_admin">录入</button>
+      <input id="movie_admin" type="submit" value="录入">
+    </form>
   </div>
 
   <!--footer-->

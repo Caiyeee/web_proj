@@ -126,7 +126,7 @@
           <span style="color: white">&nbsp;|</span><span class="btn_regis"><a id="btn_regis">注册</a></span>
         <%}else {%>
           <span class="welcome" style="color: white">欢迎，</span><span style="color: white"><%=session.getAttribute("username")%></span>
-          <span style="color: white">&nbsp;|</span><span class="btn_logout"><a id="btn_logout" href="logout.jsp">登出</a></span>
+          <span style="color: white">&nbsp;|</span><span class="btn_logout"><a id="btn_logout" href="logout.jsp?mid=<%=getmovieid %>">登出</a></span>
         <%}%>
       </div>
     </div>
@@ -207,6 +207,7 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_regist">立即注册</a>
       </div>
+      <div id="error1" style="display: none; color: red; text-align: center;">密码不能为中文且必须2位数以上</div>
     </div>
    </form>
 
@@ -229,7 +230,7 @@
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_login">立即登录</a>
       </div>
-      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空</div>
+      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空且密码长度不能小于2</div>
     </div>
   </form>
   <script type="text/javascript" src="public/js/details.js"></script>

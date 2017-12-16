@@ -166,25 +166,44 @@
 		}
 	}
 	//查询评论（用于显示）
-	public List<Map<String,String>> queryComment(int movie_id){
-		try{
-			Statement stmt=con.createStatement();
-			String sql = "select * from comments where movie_id=" + String.valueOf(movie_id);
-			ResultSet rs = stmt.executeQuery(sql);
-			if(rs.next()){
-				rs.previous();
-				List<Map<String,String>> list = resultsetToList(rs);
-				stmt.close();
-				return list;
-			} else {
-				stmt.close();
+		public List<Map<String,String>> queryComment(int movie_id){
+			try{
+				Statement stmt=con.createStatement();
+				String sql = "select * from comments where movie_id=" + String.valueOf(movie_id);
+				ResultSet rs = stmt.executeQuery(sql);
+				if(rs.next()){
+					rs.previous();
+					List<Map<String,String>> list = resultsetToList(rs);
+					stmt.close();
+					return list;
+				} else {
+					stmt.close();
+					return null;
+				}
+			}catch(Exception e){
+				System.out.println(e.getMessage());
 				return null;
 			}
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-			return null;
 		}
-	}
+	//通过用户id查询用户名
+		public String queryNameById(String user_id){
+			try{
+				Statement stmt=con.createStatement();
+				String sql = "select * from users where id=" + user_id;
+				ResultSet rs = stmt.executeQuery(sql);
+				if(rs.next()){
+					String s = rs.getString("name");
+					stmt.close();
+					return s;
+				} else {
+					stmt.close();
+					return null;
+				}
+			}catch(Exception e){
+				System.out.println(e.getMessage());
+				return null;
+			}
+		}
 	//查询用户
 	public String queryUser(String name){
 		try{

@@ -16,7 +16,6 @@
 	 if(searchButton == null) {
 	  System.out.print("分类");
 	  if(class_str == null) {
-	  	  System.out.print("nulllllllllllll");
 	  	  list = movieClass("全部"); 
 	  } else if(class_str != null && class_str.equals("all")) {
 	     list = movieClass("全部");
@@ -144,7 +143,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span  id="alert" class="alert">请先登陆再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>
@@ -280,6 +280,18 @@
   </form>
 
   <script type="text/javascript" src="public/js/index.js"></script>
+  <script language="JavaScript">
+  //对添加按钮的监听
+  	var addMovie = document.getElementById('add');
+  	addMovie.onclick = function() { 	
+ 		var ses = "<%=session.getAttribute("username")%>";
+ 		if(ses!="null"){  	
+ 			window.location.href = "addMovie.jsp";
+  		}else{
+  			document.getElementById('alert').style.display = 'inline';
+  		}
+  	}
+ </script>
 </body>
 </html>
 

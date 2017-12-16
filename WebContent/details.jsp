@@ -13,14 +13,21 @@
 	String moviecomment = "";
 	String moviepost = "";
 	String isLogin = "";
+	String getcommentid = "";
+	int getmovieuserid = -1;
 	Object movieuser = session.getAttribute("username");
-	Object getmovieuserid = session.getAttribute("user_id");
+	Object ob = session.getAttribute("userId");
 	
-	if(movieuser == null)
+	if(ob != null)
+		getmovieuserid = Integer.parseInt(String.valueOf(ob)); 
+	
+	if(movieuser == null){
 		isLogin = "false";
-	else
+	}
+	else{
 		isLogin = "true";
-	
+	}
+
 	int movieid = Integer.parseInt(getmovieid);
 	
 	boolean b = connect();
@@ -49,8 +56,10 @@
 	String fontstyle = "";
 	String editstr = "";
 	String isRead = "";
+	String deletecommentid = "";
 	String sub1 = "";
 	String sub2 = "";
+	String sub3 = "";
 	
 	editstr = "编辑内容";
 	isRead = "readonly='true'";
@@ -58,6 +67,7 @@
 	if(request.getMethod().equalsIgnoreCase("post")){
 		sub1 = request.getParameter("submitedit");
 		sub2 = request.getParameter("submitcomment");
+		sub3 = request.getParameter("delete");
 		if(sub1 != null&&isLogin.equals("true")){
 			if(sub1.equals("编辑内容")){
 				fontstyle = "style='font-style:italic'";
@@ -90,7 +100,7 @@
 		{
 			if(sub2.equals("提交")){
 				moviecomment = request.getParameter("new-comment");
-				Comment comment = new Comment(20, movieid, moviecomment);
+				Comment comment = new Comment(getmovieuserid, movieid, moviecomment);
 				insertComment(comment);
 				moviecomment = "";
 				commentlist = queryComment(movieid);
@@ -99,6 +109,11 @@
 		else if(sub2 != null&&isLogin.equals("false"))
 		{
 			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
+		}
+		if(sub3 != null){
+			deletecommentid = request.getParameter("commentid");
+			deleteComment(Integer.parseInt(deletecommentid));
+			commentlist = queryComment(movieid);
 		}
 	}
 %>
@@ -159,29 +174,42 @@
   <div class="newcomment">
   	 <div class = "newcommentsize">
 	  	 <label class="com">请写下你的观影感受吧</label><br>
-	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%><%= getmovieuserid%></textarea><br>
+	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%></textarea><br>
 	     <input id="comment-sub" type="submit" value="提交" name="submitcomment">
   	 </div>
   </div><br>
   
   <br>
-  
+ </form> 
+ 
   <div class="somecomments">
   		<p id="comtitle"><%= moviename%>的短评</p><br>
   		<%String getcomments="";
+  		String isShowDelete = "";
   		 if(commentlist != null){
   			for(int i=0; i<commentlist.size(); i++){
   				getcomments="";
-  				Map<String,String> commentmap = commentlist.get(i);%>
+  				Map<String,String> commentmap = commentlist.get(i);
+  				if(String.valueOf(commentmap.get("user_id")).equals(String.valueOf(getmovieuserid))){
+  					isShowDelete = "";	
+  				}else{
+  					isShowDelete = "style='display:none'";
+  				}
+  				%>
   				<br>
-  				<div id="commentusername"><%= queryNameById(String.valueOf(commentmap.get("user_id")))%></div>
+  				<div id="commentusername"><%= queryNameById(String.valueOf(commentmap.get("user_id")))%>
+  				 <form action="details.jsp?mid=<%= getmovieid%>&commentid=<%= String.valueOf(commentmap.get("id"))%>" method="post">
+  				<input id="deletecomment" type="submit" value="删除" name="delete" <%= isShowDelete%>></form>
+  				</div>
   				<br>
   				<div id="usercomment"><%= commentmap.get("content")%>
-  				<input id="deletecomment" type="submit" value="删除" name="delete"></div>
+  				<br>
+  				</div>
   				<% }%>
   		<% }else {getcomments="null";} %>
   </div>
-  </form>
+
+
   <!--footer-->
   <div class="footer-wrapper">
     <div class="bottom-footer">

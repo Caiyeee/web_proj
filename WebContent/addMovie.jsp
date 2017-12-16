@@ -1,9 +1,6 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%
   request.setCharacterEncoding("utf-8");
-  //处理上传的图片
-  
-// <button id="movie_admin">录入</button>
 %>
 <!DOCTYPE html>
 <html>
@@ -25,8 +22,8 @@
         <li><a href="#">关于我们</a></li>
       </ul>
       <div class="login_register">
-        <span class="btn_login"><a id="btn_login">登录</a></span>
-        <span style="color: white">&nbsp;|</span><span class="btn_regis"><a id="btn_regis">注册</a></span>
+        <span class="btn_login"><a id="btn_login">欢迎，<%=session.getAttribute("username") %></a></span>
+        <span style="color: white">&nbsp;|</span><span class="btn_regis"><a id="btn_logout" href="logout.jsp">登出</a></span>
       </div>
     </div>
   </div>

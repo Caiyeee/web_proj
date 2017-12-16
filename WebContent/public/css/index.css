@@ -116,7 +116,7 @@
 /*content*/
 .content-wrapper {
   width: 960px;
-  height: auto;
+  min-height: 500px;
   margin: 10px auto;
 }
 .content-wrapper .topic {

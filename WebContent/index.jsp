@@ -123,12 +123,12 @@
     </div>
     <div class="banner">
         <div class="banner-img">
-            <img src="public/image/slider1.png" width="960" height="220" alt="轮播图1">
+            <img src="public/image/slider4.png" width="960" height="220" alt="轮播图1">
         </div>
     </div>
     <div class="banner">
         <div class="banner-img">
-            <img src="public/image/slider2.png" width="960" height="220" alt="轮播图1">
+            <img src="public/image/slider5.png" width="960" height="220" alt="轮播图1">
         </div>
     </div>
     <div class="tab">

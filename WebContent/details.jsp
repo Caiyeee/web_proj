@@ -108,8 +108,13 @@
         <li><a href="#">关于我们</a></li>
       </ul>
       <div class="login_register">
-        <span class="btn_login"><a id="btn_login">登录</a></span>
-        <span style="color: white">&nbsp;|</span><span class="btn_regis"><a id="btn_regis">注册</a></span>
+        <%if(session.getAttribute("username") == null) {%>
+          <span class="btn_login"><a id="btn_login">登录</a></span>
+          <span style="color: white">&nbsp;|</span><span class="btn_regis"><a id="btn_regis">注册</a></span>
+        <%}else {%>
+          <span class="welcome" style="color: white">欢迎，</span><span style="color: white"><%=session.getAttribute("username")%></span>
+          <span style="color: white">&nbsp;|</span><span class="btn_logout"><a id="btn_logout" href="logout.jsp">登出</a></span>
+        <%}%>
       </div>
     </div>
   </div>
@@ -165,50 +170,52 @@
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
+ </form>
   <!--登陆框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
-  <div class="ui-dialog " id="dialog-Login" onselectstart='return false;'>
+  <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?mid=<%=getmovieid %>" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
       登陆通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">
       <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-username" name="username" type="input" placeholder="用户名">
+        <input class="ui-dialog-input ui-dialog-input-username" id="login_username" name="username" type="text" placeholder="用户名" autocomplete="off">
       </div>
       <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-password" name="password" type="input" placeholder="密码">
+        <input class="ui-dialog-input ui-dialog-input-password" id="login_password" name="password" type="text" onfocus="this.type='password'" placeholder="密码" autocomplete="off">
       </div>
       <div>
-        <a class="ui-dialog-submit" href="details.jsp">登录</a>
+        <input type="submit" name="login" class="ui-dialog-submit" value="登录" id="to_login">
       </div>
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_regist">立即注册</a>
       </div>
     </div>
-  </div>
+   </form>
 
   <!--注册框-->
-  <div class="ui-dialog " id="dialog-register" onselectstart='return false;'>
+  <form class="ui-dialog " id="dialog-register" method="post" action="checkRegist.jsp?mid=<%=getmovieid %>" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
       注册账号
       <a class="ui-dialog-closebutton" id="close_regist"></a>
     </div>
     <div class="ui-dialog-content">
       <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-username" name="username" type="input" placeholder="用户名">
+        <input class="ui-dialog-input ui-dialog-input-username" id="regis_username" name="username" type="text" placeholder="用户名" autocomplete="off">
       </div>
       <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-password" name="password" type="input" placeholder="密码">
+        <input class="ui-dialog-input ui-dialog-input-password" id="regis_password" name="password" type="text" onfocus="this.type='password'" placeholder="密码" autocomplete="off">
       </div>
       <div>
-        <a class="ui-dialog-submit" href="details.jsp">注册</a>
+        <input type="submit" class="ui-dialog-submit" value="注册" name="register" id="to_register">
       </div>
       <div class="ui-dialog-40">
         <a href="#" id="jump_to_login">立即登录</a>
       </div>
+      <div id="error" style="display: none; color: red; text-align: center;">用户名或密码不能为空</div>
     </div>
-  </div>
+  </form>
   <script type="text/javascript" src="public/js/details.js"></script>
   </form>
 </body>

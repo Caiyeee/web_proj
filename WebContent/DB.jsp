@@ -192,7 +192,6 @@
 			String sql = "select * from users where name=\'" + name + "\'";
 			ResultSet rs = stmt.executeQuery(sql);
 			if(rs.next()){
-				rs.next();
 				return rs.getString("password");		
 			} else {
 				stmt.close();

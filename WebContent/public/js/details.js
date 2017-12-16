@@ -1,4 +1,4 @@
-  // 登录注册框弹出
+   // 登录注册框弹出
   function g(id){return document.getElementById(id);}
   var close_login = g('close_login');
   var close_regist = g('close_regist');
@@ -31,6 +31,7 @@
     g('dialog-register').style.display = 'none';
     g('dialog-Login').style.display = 'block';
   }
+
 
   //编辑词条
  /* var director = g('director');

@@ -34,7 +34,7 @@
 	     list = movieClass("动画");
 	    }	  
     } else {
-    	list = queryMovie(search);
+    	list = queryMovie(search, 1);
  	    System.out.print("查询");
     }
   
@@ -237,7 +237,7 @@
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
-      登陆通行证
+      登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">

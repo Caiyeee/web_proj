@@ -32,7 +32,6 @@
     g('dialog-Login').style.display = 'block';
   }
 
-
   //编辑词条
  /* var director = g('director');
   var starring = g('starring');

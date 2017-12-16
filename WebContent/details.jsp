@@ -12,6 +12,12 @@
 	String movieinfo = "";
 	String moviecomment = "";
 	String moviepost = "";
+	String isLogin = "";
+	Object movieuser = session.getAttribute("username");
+	if(movieuser == null)
+		isLogin = "false";
+	else
+		isLogin = "true";
 	
 	int movieid = Integer.parseInt(getmovieid);
 	
@@ -38,23 +44,22 @@
 	
 	List<Map<String,String>> commentlist = queryComment(movieid);
 	
+	String fontstyle = "";
 	String editstr = "";
-	String isChange = "";
 	String isRead = "";
 	String sub1 = "";
 	String sub2 = "";
 	
 	editstr = "编辑内容";
-	isChange = "false";
 	isRead = "readonly='true'";
 	
 	if(request.getMethod().equalsIgnoreCase("post")){
 		sub1 = request.getParameter("submitedit");
 		sub2 = request.getParameter("submitcomment");
-		if(sub1 != null){
+		if(sub1 != null&&isLogin.equals("true")){
 			if(sub1.equals("编辑内容")){
+				fontstyle = "style='font-style:italic'";
 				editstr = "修改完成";
-				isChange = "true";
 				isRead = "";
 			}
 			else if(sub1.equals("修改完成")){
@@ -70,19 +75,28 @@
 				updateMovie(movieid, "year", movieyear);
 				updateMovie(movieid, "classes", movieclass);
 				updateMovie(movieid, "info", movieinfo);
+				fontstyle = "";
 				editstr = "编辑内容";
-				isChange = "false";
 				isRead = "readonly='true'";
 			}
 		}
-		else if(sub2 != null)
+		else if(sub1 != null&&isLogin.equals("false"))
+		{
+			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
+		}
+		if(sub2 != null&&isLogin.equals("true"))
 		{
 			if(sub2.equals("提交")){
 				moviecomment = request.getParameter("new-comment");
 				Comment comment = new Comment(20, movieid, moviecomment);
 				insertComment(comment);
 				moviecomment = "";
+				commentlist = queryComment(movieid);
 			}
+		}
+		else if(sub2 != null&&isLogin.equals("false"))
+		{
+			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
 		}
 	}
 %>
@@ -96,9 +110,8 @@
   <script type="text/javascript" src="public/js/details.js"></script>
 </head>
 <body>
-  <form action="details.jsp?mid=<%= getmovieid%>" method="post">
   <!-- 向js文件传递信息 -->
-  <input type = "hidden" id="tag" value="<%= isChange%>"> 
+  <input type = "hidden" id="isLogin" value="<%= isLogin%>"> 
   <!--导航栏-->
   <div class="nav-wrapper">
     <div class="nav-content">
@@ -120,6 +133,7 @@
   </div>
   
   <!-- 影片详情 -->
+  <form action="details.jsp?mid=<%= getmovieid%>" method="post">
   <div class = "forheight">
   <div class = "bk">
   <div class = "forcolor"></div>
@@ -130,17 +144,15 @@
   	  <span><img id="editicon" src="public/image/editicon.png"></span>
    	  <p id="moviepic"><img class="poster" src=<%= moviepost%>></p>
   	  <div id="movieinfo">
-  	  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> name="director"></p><br>
-  	  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> name="starring"></p><br>
-  	  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> name="year"></p><br>
-  	  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> name="classes"></p><br>
+  	  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> <%=fontstyle%> name="director"></p><br>
+  	  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> <%=fontstyle%> name="starring"></p><br>
+  	  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> <%=fontstyle%> name="year"></p><br>
+  	  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes"></p><br>
+  	  	<p id="plot">剧情简介：<br><textarea id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name=info><%= movieinfo%></textarea></p>
   	  </div>
    	</div>
   </div>
   </div>
-  
-  <br>
-  <div id="plot">剧情简介：<br><textarea id="movieplot" type="text" <%= isRead%> name=info><%= movieinfo%></textarea></div>
   
   <div class="newcomment">
   	 <div class = "newcommentsize">
@@ -150,32 +162,36 @@
   	 </div>
   </div><br>
   
+  <br>
+  
   <div class="somecomments">
   		<p id="comtitle"><%= moviename%>的短评</p><br>
   		<%String getcomments="";
   		 if(commentlist != null){
   			for(int i=0; i<commentlist.size(); i++){
   				getcomments="";
-  				Map<String,String> commentmap = commentlist.get(i);
-  				getcomments += commentmap.get("user_id") + commentmap.get("content");%>
-  				<div><%= getcomments%></div>
+  				Map<String,String> commentmap = commentlist.get(i);%>
   				<br>
+  				<div id="commentusername"><%= queryNameById(String.valueOf(commentmap.get("user_id")))%></div>
+  				<br>
+  				<div id="usercomment"><%= commentmap.get("content")%>
+  				<input id="deletecomment" type="submit" value="删除" name="delete"></div>
   				<% }%>
   		<% }else {getcomments="null";} %>
   </div>
- 
+  </form>
   <!--footer-->
   <div class="footer-wrapper">
     <div class="bottom-footer">
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
- </form>
+  
   <!--登陆框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?mid=<%=getmovieid %>" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
-      登陆通行证
+      登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
     <div class="ui-dialog-content">

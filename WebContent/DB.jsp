@@ -221,6 +221,23 @@
 			return null;
 		}
 	}
+	//通过用户id查询用户名
+	public String queryNameById(String user_id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from users where id=" + user_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				return rs.getString("name");
+			} else {
+				stmt.close();
+				return null;
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//把ResultSet转化为list，list中的条目是map<string,string>
 	public static List<Map<String,String>> resultsetToList(ResultSet rs) throws java.sql.SQLException {
 		if(rs == null)	return null;

@@ -92,10 +92,10 @@
 				isRead = "readonly='true'";
 			}
 		}
-		else if(sub1 != null&&isLogin.equals("false"))
+	/*	else if(sub1 != null&&isLogin.equals("false"))
 		{
 			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
-		}
+		}*/
 		if(sub2 != null&&isLogin.equals("true"))
 		{
 			if(sub2.equals("提交")){
@@ -106,10 +106,10 @@
 				commentlist = queryComment(movieid);
 			}
 		}
-		else if(sub2 != null&&isLogin.equals("false"))
+	/*	else if(sub2 != null&&isLogin.equals("false"))
 		{
 			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
-		}
+		}*/
 		if(sub3 != null){
 			deletecommentid = request.getParameter("commentid");
 			deleteComment(Integer.parseInt(deletecommentid));
@@ -125,8 +125,15 @@
   <link rel="stylesheet" type="text/css" href="public/css/reset.css">
   <link rel="stylesheet" type="text/css" href="public/css/details.css">
   <script type="text/javascript" src="public/js/details.js"></script>
+  <script>
+     function to_comment() {
+   	  comment.style.height = '80px';
+	  sub_comment.style.opacity = '1';
+     }
+  </script>
 </head>
 <body>
+  <div class="bg-item bg-blur"></div>
   <!-- 向js文件传递信息 -->
   <input type = "hidden" id="isLogin" value="<%= isLogin%>"> 
   <!--导航栏-->
@@ -149,77 +156,83 @@
     </div>
   </div>
   
-  <!-- 影片详情 -->
-  <form action="details.jsp?mid=<%= getmovieid%>" method="post" class="movie-form">
-  <div class = "forheight clearfx">
-  <div class = "bk">
-  <div class = "forcolor"></div>
-    <div class="detail clearfx">
-      <div class="left clearfx">
-         <div id="moviepic" class="movie-pic"><img class="poster" src=<%= moviepost%>></div>
-      </div>
-      <div class="right">
-        <p class="movie-name"><input id="moviename" name="name" value=<%= moviename %>></p>
-  	    <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
-  	    <span><img id="editicon" src="public/image/editicon.png"></span>
-  	    <div id="movieinfo" class="movie-info">
-  	      <div class="info-item">
-  	        <strong>导演：</strong> <input id="director" type="text" value=<%= moviedirector%> <%= isRead%> <%=fontstyle%> name="director">
-  	      </div>
-  	  	  <div class="info-item">
-  	  	    <strong>主演：</strong> <input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> <%=fontstyle%> name="starring">
-  	  	  </div>
-  	  	  <div class="info-item">
-  	  	    <strong>上映年份：</strong> <input id="year" type="text" value=<%= movieyear%> <%= isRead%> <%=fontstyle%> name="year">
-  	  	  </div>
-  	  	  <div class="info-item">
-  	  	    <strong>类别：</strong> <input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes">
-  	  	  </div>
-  	  	  <div class="info-item short-content">
-  	  	    <strong id="plot">剧情简介:</strong><div id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name=info><%= movieinfo%></div>
-  	  	  </div>
-  	    </div>
-      </div>
-      <div></div>
-   	</div>
+  <div class="content-wrapper">
+	  <!-- 影片详情 -->
+	  <form action="details.jsp?mid=<%= getmovieid%>" method="post" class="movie-form">
+	    <div class="detail clearfx">
+	      <div class="left clearfx">
+	         <div id="moviepic" class="movie-pic"><img class="poster" src=<%= moviepost%>></div>
+	      </div>
+	      <div class="right">
+	        <p class="movie-name"><input id="moviename" name="name" value=<%= moviename %>></p>
+	        <%if(session.getAttribute("username") != null){ %>
+	  	      <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
+	  	      <span><img id="editicon" src="public/image/editicon.png"></span>
+	  	    <%}%>
+	  	    <div id="movieinfo" class="movie-info">
+	  	      <div class="info-item">
+	  	        <strong>导演：</strong> <input id="director" type="text" value=<%= moviedirector%> <%= isRead%> <%=fontstyle%> name="director">
+	  	      </div>
+	  	  	  <div class="info-item">
+	  	  	    <strong>主演：</strong> <input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> <%=fontstyle%> name="starring">
+	  	  	  </div>
+	  	  	  <div class="info-item">
+	  	  	    <strong>上映年份：</strong> <input id="year" type="text" value=<%= movieyear%> <%= isRead%> <%=fontstyle%> name="year">
+	  	  	  </div>
+	  	  	  <div class="info-item">
+	  	  	    <strong>类别：</strong> <input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes">
+	  	  	  </div>
+	  	  	  <div class="info-item short-content">
+	  	  	    <strong id="plot">剧情简介:</strong><input id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name="info" value=<%= movieinfo%>>
+	  	  	  </div>
+	  	    </div>
+	      </div>
+	   	</div>
+	   	<div class="comment">
+	   	  <%if(session.getAttribute("username") == null){ %>
+	   	     <div class="awake-to-login">
+	   	        <i><img alt="" src="public/image/user_no.png"></i>
+	   	        <span>目前您尚未登录，请<a href="#" id="awake_login">登录</a>或<a href="#" id="awake_regist">注册</a>后进行评论</span>
+	   	     </div>
+	   	     <%}else{ %>
+				  <div class="newcomment">
+				  	 <span><img alt="" src="public/image/user_no.png"></span>
+				     <textarea type="text" name="new-comment" id="my-comment" placeholder="发表你的评论" class="commit-text" onclick="to_comment()"><%= moviecomment%></textarea><br>
+				     <input id="comment-sub" type="submit" value="提交" name="submitcomment" class="sub-commit">
+				  </div>
+			 <%}%>
+		  <div class="somecomments cont">
+	  		<div id="comtitle" style="margin-bottom: 25px"><%= moviename%>的短评</div>
+	  		<%String getcomments="";
+	  		   String isShowDelete = "";
+	  		 if(commentlist != null){
+	  			for(int i=0; i<commentlist.size(); i++){
+	  				getcomments="";
+	  				Map<String,String> commentmap = commentlist.get(i);
+	  				if(String.valueOf(commentmap.get("user_id")).equals(String.valueOf(getmovieuserid))){
+	  					isShowDelete = "";	
+	  				}else{
+	  					isShowDelete = "style='display:none'";
+	  				}
+	  				%>
+	  				<div class="comment-wrapper">
+		  				<div id="commentusername">
+		  				  <i><img alt="" src="public/image/user_center.png" width="30" height="30"></i>
+		  				  <span><%= queryNameById(String.valueOf(commentmap.get("user_id")))%> </span>
+		  				  <form action="details.jsp?mid=<%= getmovieid%>&commentid=<%= String.valueOf(commentmap.get("id"))%>" method="post">
+		  				    <input id="deletecomment" type="submit" value="删除" name="delete" <%= isShowDelete%>>
+		  				  </form>
+		  				</div>
+		  				<div id="usercomment"><%= commentmap.get("content")%></div>	  				
+	  				</div>
+	  				<% }%>
+	  		<% }else {getcomments="null";} %>
+	     </div> 
+	    </div>
+	  
+	 </form>    
   </div>
-  </div>
-  
-  <div class="newcomment">
-  	 <div class = "newcommentsize">
-	  	 <label class="com">请写下你的观影感受</label>
-	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%></textarea><br>
-	     <input id="comment-sub" type="submit" value="提交" name="submitcomment">
-  	 </div>
-  </div>
- </form> 
  
-  <div class="somecomments cont">
-  		<div id="comtitle"><%= moviename%>的短评</div><br>
-  		<%String getcomments="";
-  		String isShowDelete = "";
-  		 if(commentlist != null){
-  			for(int i=0; i<commentlist.size(); i++){
-  				getcomments="";
-  				Map<String,String> commentmap = commentlist.get(i);
-  				if(String.valueOf(commentmap.get("user_id")).equals(String.valueOf(getmovieuserid))){
-  					isShowDelete = "";	
-  				}else{
-  					isShowDelete = "style='display:none'";
-  				}
-  				%>
-  				<br>
-  				<div id="commentusername"><%= queryNameById(String.valueOf(commentmap.get("user_id")))%>
-  				 <form action="details.jsp?mid=<%= getmovieid%>&commentid=<%= String.valueOf(commentmap.get("id"))%>" method="post">
-  				<input id="deletecomment" type="submit" value="删除" name="delete" <%= isShowDelete%>></form>
-  				</div>
-  				<br>
-  				<div id="usercomment"><%= commentmap.get("content")%>
-  				<br>
-  				</div>
-  				<% }%>
-  		<% }else {getcomments="null";} %>
-  </div>
 
 
   <!--footer-->

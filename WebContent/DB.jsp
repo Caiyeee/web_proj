@@ -213,6 +213,20 @@
 			return null;
 		}
 	}
+	//通过用户id查询评论
+	public List<Map<String,String>> queryCommentById(int user_id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from comments where id=" + user_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			List<Map<String,String>> list = resultsetToList(rs);
+			stmt.close();
+			return list;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//通过用户id查询用户名
 	public String queryNameById(String user_id){
 		try{

@@ -2,6 +2,7 @@
 <%
   	request.setCharacterEncoding("utf-8");
 
+    //得到电影的id
 	String getmovieid = request.getParameter("mid");
 
 	String moviename = "";
@@ -14,6 +15,8 @@
 	String moviepost = "";
 	String isLogin = "";
 	String getcommentid = "";
+	
+	//通过session判断当前用户
 	int getmovieuserid = -1;
 	Object movieuser = session.getAttribute("username");
 	Object ob = session.getAttribute("userId");
@@ -30,6 +33,7 @@
 
 	int movieid = Integer.parseInt(getmovieid);
 	
+	//由id得到对应的电影信息
 	boolean b = connect();
 	List<Map<String,String>> list = queryMovie(getmovieid,2);
 	if(list != null){
@@ -51,6 +55,7 @@
 		movieinfo = "null";
 	}
 	
+	//评论信息
 	List<Map<String,String>> commentlist = queryComment(movieid);
 	
 	String fontstyle = "";
@@ -68,13 +73,16 @@
 		sub1 = request.getParameter("submitedit");
 		sub2 = request.getParameter("submitcomment");
 		sub3 = request.getParameter("delete");
+		//如果处于登录状态
 		if(sub1 != null&&isLogin.equals("true")){
+			//处于编辑状态时，字体为斜体
 			if(sub1.equals("编辑内容")){
 				fontstyle = "style='font-style:italic'";
 				editstr = "修改完成";
 				isRead = "";
 			}
 			else if(sub1.equals("修改完成")){
+				//修改完成后，更新电影信息
 				moviename = request.getParameter("name");
 				moviedirector = request.getParameter("director");
 				moviestarring = request.getParameter("starring");
@@ -98,6 +106,7 @@
 		}
 		if(sub2 != null&&isLogin.equals("true"))
 		{
+			//评论提交
 			if(sub2.equals("提交")){
 				moviecomment = request.getParameter("new-comment");
 				Comment comment = new Comment(getmovieuserid, movieid, moviecomment);
@@ -111,6 +120,7 @@
 			out.println("<script>window.alert('请先登录账号');window.history.go(-1);</script>");
 		}
 		if(sub3 != null){
+			//删除评论
 			deletecommentid = request.getParameter("commentid");
 			deleteComment(Integer.parseInt(deletecommentid));
 			commentlist = queryComment(movieid);
@@ -171,6 +181,7 @@
   </div>
   </div>
   
+  <!-- 新增电影评论 -->
   <div class="newcomment">
   	 <div class = "newcommentsize">
 	  	 <label class="com">请写下你的观影感受吧</label><br>
@@ -182,6 +193,7 @@
   <br>
  </form> 
  
+ <!-- 展示电影已有评论 -->
   <div class="somecomments">
   		<p id="comtitle"><%= moviename%>的短评</p><br>
   		<%String getcomments="";
@@ -217,7 +229,7 @@
     </div>
   </div>
   
-  <!--登陆框-->
+  <!--登录框-->
   <div class="ui-mask" id="mask" onselectstart="return false"></div>
   <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?mid=<%=getmovieid %>" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">

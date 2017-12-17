@@ -180,6 +180,7 @@
 	  	  	    <strong>类别：</strong> <input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes">
 	  	  	  </div>
 	  	  	  <div class="info-item short-content">
+
 	  	  	    <strong id="plot">剧情简介:</strong><textarea id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name=info><%= movieinfo%></textarea>
 	  	  	  </div>
 	  	    </div>

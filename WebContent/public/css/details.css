@@ -46,6 +46,10 @@ body {
     height: 20px;
 }
 
+.movie-form {
+
+}
+
 .detail{
   	max-width:900px;
 	margin:70px auto 0;
@@ -131,6 +135,33 @@ body {
 	width:500px;
 }
 
+<<<<<<< HEAD
+.awake-to-login {
+	margin: 10px auto 40px;
+	width: 880px;
+	height: 80px;
+	font-family: MicrosoftYaHei;
+    font-size: 14px;
+    color: #4f4f4f;
+    text-align: center;
+    background: #e7ecf0;
+    border-radius: 7px;
+}
+.awake-to-login i {
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.awake-to-login span {
+	vertical-align: middle;
+	height: 80px;
+	line-height: 80px;
+	font-size: 18px;
+}
+.awake-to-login a:link, .awake-to-login a:visited {
+	color: red;
+	text-decoration: underline;
+}
 .awake-to-login {
 	margin: 10px auto 40px;
 	width: 880px;
@@ -292,3 +323,4 @@ body {
     padding-bottom: 7px;
     line-height: 30px;
 }
+

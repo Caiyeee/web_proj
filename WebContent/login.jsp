@@ -6,7 +6,7 @@
   String class_str = request.getParameter("class");
   String searchButton = request.getParameter("searchButton");
   String from = request.getParameter("from");
-  String display = from.equals("add") ? "inline" : "none";
+  String display = (from!=null && from.equals("add")) ? "inline" : "none";
   String search = request.getParameter("search");
   System.out.print("searchButton:,"+searchButton);
   System.out.print("search:,"+search);

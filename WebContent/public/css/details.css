@@ -1,3 +1,7 @@
+body {
+	letter-spacing: 0.1em;
+}
+
 .bk{
 	background-color: #127bab;
     width: 100%;
@@ -6,7 +10,7 @@
 }
 
 .forheight{
-	height:400px;
+	height: 586px;
 }
 
 .forcolor{
@@ -22,6 +26,7 @@
 	background-color:white;
 	padding:10px;
 	padding-bottom:20px;
+	border-radius: 11px;
 }
 
 #plot{
@@ -74,15 +79,18 @@
 }
 
 #my-comment{
-	width:500px;
+	width: 570px;;
 	height:100px;
 	margin-top:10px;
 	margin-bottom:10px;
+	resize:none;
 }
 
 .newcommentsize{
 	width:500px;
 	height:160px;
+	position: relative;
+    left: 284px;
 }
 
 #comment-sub{
@@ -93,7 +101,7 @@
 	border:0 none;
 	overflow:auto;
 	width:500px;
-	height:200px;
+	padding-bottom: 10px;
 	resize:none;
 	outline:none;
 }
@@ -108,6 +116,8 @@
 	border-radius:5px;
 	background-color: #127bab;
 	color:white;
+	position: relative;
+    left: 50px;
 }
 
 #usercomment{
@@ -124,3 +134,70 @@
 #deletecomment{
 	float:right;
 }
+
+#usercomment{
+	overflow:hidden;
+}
+.left {
+  float: left;
+  width: 250px;
+  height: 500px;
+}
+.right {
+  float: right;
+  width: 636px;
+}
+.movie-pic {
+    margin: 10px;
+    background: #f9f9fa;
+    border: 1px solid #d5d5d5;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #999;
+    padding: 14px;
+    width: 203px;
+}
+.movie-name {
+  margin-left: 10px;
+  margin-top: 8px;
+}
+.movie-name input {
+  font-weight: bolder;
+}
+.poster {
+	border-radius: 6px;
+    border: 1px solid #000;
+}
+.info-item {
+	border-bottom: 1px dotted #999;
+    position: relative;
+    zoom: 1;
+    color: #333;
+    letter-spacing: 0.2em;
+    padding: 9px 0 9px 95px;
+    line-height: 1.5em;
+    font-size: 15px;
+}
+.info-item strong {
+    position: absolute;
+    left: 0;
+    top:11px;
+    width: 95px;
+    font-weight: bolder;
+    font-size: 14px;
+    line-height: 1.5em;
+    letter-spacing: 0.1em;
+}
+.cont {
+	min-height: 400px;
+	margin-top: 10px;
+}
+.short-content {
+	border-bottom: none;
+}
+.detail {
+	min-width: 500px;
+}
+.movie-form {
+	margin-bottom: 10px;
+}
+

@@ -150,40 +150,52 @@
   </div>
   
   <!-- 影片详情 -->
-  <form action="details.jsp?mid=<%= getmovieid%>" method="post">
-  <div class = "forheight">
+  <form action="details.jsp?mid=<%= getmovieid%>" method="post" class="movie-form">
+  <div class = "forheight clearfx">
   <div class = "bk">
   <div class = "forcolor"></div>
-    <div class="detail">
-      <br>
-  	  <p><input id="moviename" name="name" value=<%= moviename %>></p>
-  	  <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
-  	  <span><img id="editicon" src="public/image/editicon.png"></span>
-   	  <p id="moviepic"><img class="poster" src=<%= moviepost%>></p>
-  	  <div id="movieinfo">
-  	  	<p>导演：<input id="director" type="text" value=<%= moviedirector%> <%= isRead%> <%=fontstyle%> name="director"></p><br>
-  	  	<p>主演：<input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> <%=fontstyle%> name="starring"></p><br>
-  	  	<p>上映年份：<input id="year" type="text" value=<%= movieyear%> <%= isRead%> <%=fontstyle%> name="year"></p><br>
-  	  	<p>类别：<input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes"></p><br>
-  	  	<p id="plot">剧情简介：<br><textarea id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name=info><%= movieinfo%></textarea></p>
-  	  </div>
+    <div class="detail clearfx">
+      <div class="left clearfx">
+         <div id="moviepic" class="movie-pic"><img class="poster" src=<%= moviepost%>></div>
+      </div>
+      <div class="right">
+        <p class="movie-name"><input id="moviename" name="name" value=<%= moviename %>></p>
+  	    <input id="shortcomment" type="submit" value=<%= editstr%> name="submitedit">
+  	    <span><img id="editicon" src="public/image/editicon.png"></span>
+  	    <div id="movieinfo" class="movie-info">
+  	      <div class="info-item">
+  	        <strong>导演：</strong> <input id="director" type="text" value=<%= moviedirector%> <%= isRead%> <%=fontstyle%> name="director">
+  	      </div>
+  	  	  <div class="info-item">
+  	  	    <strong>主演：</strong> <input id="starring" type="text" value=<%= moviestarring%> <%= isRead%> <%=fontstyle%> name="starring">
+  	  	  </div>
+  	  	  <div class="info-item">
+  	  	    <strong>上映年份：</strong> <input id="year" type="text" value=<%= movieyear%> <%= isRead%> <%=fontstyle%> name="year">
+  	  	  </div>
+  	  	  <div class="info-item">
+  	  	    <strong>类别：</strong> <input id="movieclass" type="text" value=<%= movieclass%> <%= isRead%> <%=fontstyle%> name="classes">
+  	  	  </div>
+  	  	  <div class="info-item short-content">
+  	  	    <strong id="plot">剧情简介:</strong><div id="movieplot" type="text" <%= isRead%> <%=fontstyle%> name=info><%= movieinfo%></div>
+  	  	  </div>
+  	    </div>
+      </div>
+      <div></div>
    	</div>
   </div>
   </div>
   
   <div class="newcomment">
   	 <div class = "newcommentsize">
-	  	 <label class="com">请写下你的观影感受吧</label><br>
+	  	 <label class="com">请写下你的观影感受</label>
 	     <textarea type="text" name="new-comment" id="my-comment"><%= moviecomment%></textarea><br>
 	     <input id="comment-sub" type="submit" value="提交" name="submitcomment">
   	 </div>
-  </div><br>
-  
-  <br>
+  </div>
  </form> 
  
-  <div class="somecomments">
-  		<p id="comtitle"><%= moviename%>的短评</p><br>
+  <div class="somecomments cont">
+  		<div id="comtitle"><%= moviename%>的短评</div><br>
   		<%String getcomments="";
   		String isShowDelete = "";
   		 if(commentlist != null){

@@ -115,6 +115,32 @@
 			return 0;
 		}
 	}
+	//删除电影
+	public boolean deleteMovie(int id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "delete from movies where id=" + String.valueOf(id);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	//删除用户
+	public boolean deleteUser(int id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "delete from users where id=" + String.valueOf(id);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 	//修改电影
 	public int updateMovie(int id, String attr, String s){
 		try{

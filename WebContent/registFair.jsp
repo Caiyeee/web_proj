@@ -5,18 +5,15 @@
 
   String username = request.getParameter("user");
   String password = request.getParameter("pass"); 
-
+  String from = request.getParameter("from");
+  String display = from.equals("add") ? "inline" : "none";
   String class_str = request.getParameter("class");
   String searchButton = request.getParameter("searchButton");
   String search = request.getParameter("search");
   System.out.print("searchButton:,"+searchButton);
   System.out.print("search:,"+search);
- // boolean b = connect();
+
   List<Map<String,String>> list = null;
- // if(searchButton != null || searchButton != "" ) {
-//	  list = queryMovie(search);
-//	  System.out.print("查询");
- // }else {
 	 if(searchButton == null) {
 	  System.out.print("分类");
 	  if(class_str == null) {
@@ -48,35 +45,6 @@
   }else {
 	  System.out.print("class_str "+class_str);
   }
-
-
-  // 全部电影
-
-
-  // 动作
- // List<Map<String,String>> actionList = movieClass("动作");
- // String act_str = request.getParameter("class");
-
-  // 喜剧
- // List<Map<String,String>> laughList = movieClass("喜剧");
- // String laug_str =  request.getParameter("class");
-
-  // 爱情
- // List<Map<String,String>> loveList = movieClass("爱情");
- // String lov_str =  request.getParameter("class");
-  // 科幻
- // List<Map<String,String>> scList = movieClass("科幻");
- // String sc_str =  request.getParameter("class");
-  // 悬疑
- // List<Map<String,String>> supList = movieClass("悬疑");
- // String sup_str =  request.getParameter("class");
-  // 恐怖
- // List<Map<String,String>> afraidList = movieClass("恐怖");
- // String afr_str =  request.getParameter("class");
-  // 动画
- // List<Map<String,String>> cartonList = movieClass("动画");
- //  String cartstr =  request.getParameter("class");
-
 
 %>
 <!DOCTYPE HTML>
@@ -148,7 +116,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span style="display:<%=display %>" id="alert" class="alert">请先登录再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>
@@ -239,7 +208,7 @@
   </div>
   <!--登陆框-->
   <div class="ui-mask" id="mask" onselectstart="return false" style="display: block"></div>
-  <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp" onselectstart='return false;'>
+  <form class="ui-dialog " id="dialog-Login" method="post" action="checkLogin.jsp?from=<%=from %>" onselectstart='return false;'>
     <div class="ui-dialog-title" onselectstart="return false;">
       登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
@@ -260,7 +229,7 @@
     </div>
   </form>
  <!--注册框-->
-  <form class="ui-dialog " id="dialog-register" method="post" action="checkRegist.jsp" onselectstart='return false;' style="display: block">
+  <form class="ui-dialog " id="dialog-register" method="post" action="checkRegist.jsp?from=<%=from %>" onselectstart='return false;' style="display: block">
     <div class="ui-dialog-title" onselectstart="return false;">
       重新注册
       <a class="ui-dialog-closebutton" id="close_regist" style="display: none"></a>

@@ -147,7 +147,8 @@
   <!--电影内容-->
   <div class="content-wrapper clearfx">
     <div class="topic">
-      <p>电影</p>
+      <p>电影 <input type="button" value="添加" id="add" ></input>
+      	<span  id="alert" class="alert">请先登录再添加电影</span> </p>
       <ul class="class">
         <a href="index.jsp?class=all">
           <%if(class_str == null|| class_str.equals("all")){ %>
@@ -243,6 +244,7 @@
       登陆通行证
       <a class="ui-dialog-closebutton"  id="close_login" style="display: none;"></a>
     </div>
+    <input  type="hidden" name="from" id="from" value="<%=request.getParameter("from")%>">
     <div class="ui-dialog-content">
       <div class="ui-dialog-40 ui-dialog-pt15">
         <input class="ui-dialog-input ui-dialog-input-username" id="login_username" name="username" type="text" placeholder="用户名" value="<%=username%>">

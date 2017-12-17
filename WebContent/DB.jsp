@@ -26,10 +26,8 @@
 */
 %>
 <%!
-	String test ="test";
 	Connection con;
 	int userId=0, movieId=0, commentId=0;
-
 	//插入电影
 	public int insertMovie(Movie movie){
 		System.out.println("insert");
@@ -116,6 +114,32 @@
 			return 0;
 		}
 	}
+	//删除电影
+	public boolean deleteMovie(int id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "delete from movies where id=" + String.valueOf(id);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	//删除用户
+	public boolean deleteUser(int id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "delete from users where id=" + String.valueOf(id);
+			stmt.executeUpdate(sql);
+			stmt.close();
+			return true;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
 	//修改电影
 	public int updateMovie(int id, String attr, String s){
 		try{
@@ -188,6 +212,26 @@
 			return null;
 		}
 	}
+	//通过用户id查询评论
+	public List<Map<String,String>> queryCommentById(String user_id){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from comments where user_id=" + user_id;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				rs.previous();
+				List<Map<String,String>> list = resultsetToList(rs);
+				stmt.close();
+				return list;
+			}else {
+					stmt.close();
+					return null;
+				}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//通过用户id查询用户名
 	public String queryNameById(String user_id){
 		try{
@@ -212,6 +256,20 @@
 		try{
 			Statement stmt=con.createStatement();
 			String sql = "select * from users where name=\'" + name + "\'";
+			ResultSet rs = stmt.executeQuery(sql);
+			List<Map<String,String>> list = resultsetToList(rs);
+			stmt.close();
+			return list;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
+	//无条件查询所有用户，用于管理员
+	public List<Map<String,String>> queryAllUser(){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "select * from users";
 			ResultSet rs = stmt.executeQuery(sql);
 			List<Map<String,String>> list = resultsetToList(rs);
 			stmt.close();

@@ -90,7 +90,7 @@
       <img class="logo" src="public/image/hdmovie_32.png">
       <ul>
         <li><a href="#">首页</a></li>
-        <li><a href="#">关于我们</a></li>
+        <li><a href="https://github.com/Caiyeee/web_proj">关于我们</a></li>
       </ul>
       <div class="login_register">
         <%if(session.getAttribute("username") == null) {%>
@@ -122,12 +122,12 @@
     </div>
     <div class="banner">
         <div class="banner-img">
-            <img src="public/image/slider1.png" width="960" height="220" alt="轮播图1">
+            <img src="public/image/slider4.png" width="960" height="220" alt="轮播图1">
         </div>
     </div>
     <div class="banner">
         <div class="banner-img">
-            <img src="public/image/slider2.png" width="960" height="220" alt="轮播图1">
+            <img src="public/image/slider5.png" width="960" height="220" alt="轮播图1">
         </div>
     </div>
     <div class="tab">
@@ -240,6 +240,7 @@
       登录通行证
       <a class="ui-dialog-closebutton"  id="close_login"></a>
     </div>
+    <input  type="hidden" name="from" id="from" value="*">
     <div class="ui-dialog-content">
       <div class="ui-dialog-40 ui-dialog-pt15">
         <input class="ui-dialog-input ui-dialog-input-username" id="login_username" name="username" type="text" placeholder="用户名" autocomplete="off">
@@ -262,6 +263,7 @@
       注册账号
       <a class="ui-dialog-closebutton" id="close_regist"></a>
     </div>
+    <input  type="hidden" name="from" id="from2" value="*">
     <div class="ui-dialog-content">
       <div class="ui-dialog-40 ui-dialog-pt15">
         <input class="ui-dialog-input ui-dialog-input-username" id="regis_username" name="username" type="text" placeholder="用户名" autocomplete="off">
@@ -289,6 +291,10 @@
  			window.location.href = "addMovie.jsp";
   		}else{
   			document.getElementById('alert').style.display = 'inline';
+  			document.getElementById('dialog-Login').style.display = 'block';
+  			document.getElementById('mask').style.display = 'block';
+  			document.getElementById('from').value = 'add';
+  			document.getElementById('from2').value = 'add';
   		}
   	}
  </script>

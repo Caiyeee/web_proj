@@ -102,10 +102,14 @@ oBody.onmouseout = function(){/*鼠标移出，重新调用定时器，轮播图
   close_login.onclick = function() {
     g('dialog-Login').style.display = 'none';
     g('mask').style.display = 'none';
+    g('from').value = 'notAdd';
+    g('alert').style.display = 'none';
   }
   close_regist.onclick = function() {
     g('dialog-register').style.display = 'none';
     g('mask').style.display = 'none';
+    g('from').value = 'notAdd';
+    g('alert').style.display = 'none';
   }
   jump_to_regist.onclick = function() {
     g('dialog-Login').style.display = 'none';

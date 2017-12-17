@@ -1,6 +1,53 @@
-<%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
+<%@ page language="java"  contentType="text/html; charset=utf-8"%>
+<%@ page import="java.io.*,java.util.*,org.apache.commons.io.*" %>
+<%@ page import="org.apache.commons.fileupload.*" %>
+<%@ page import="org.apache.commons.fileupload.disk.*" %>
+<%@ page import="org.apache.commons.fileupload.servlet.*" %>
+<%@ include file = "DB.jsp" %>
 <%
-  request.setCharacterEncoding("utf-8");
+ 	request.setCharacterEncoding("utf-8");
+	
+	if(session.getAttribute("username")==null)
+		response.sendRedirect("index.jsp");
+		
+	Movie newMovie = new Movie();
+	if(request.getMethod().equalsIgnoreCase("post")){	
+		boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+		if(isMultipart){
+			FileItemFactory factory = new DiskFileItemFactory();
+			ServletFileUpload upload = new ServletFileUpload(factory);
+			List items = upload.parseRequest(request);		
+			for(int i=0; i<items.size(); i++) {//表单数据
+				FileItem fi = (FileItem) items.get(i);
+				if(fi.isFormField()){
+					String attr = fi.getFieldName();
+					if(attr.equals("movieName"))
+						newMovie.setName(fi.getString("utf-8"));
+					else if(attr.equals("director"))
+						newMovie.setDirector(fi.getString("utf-8"));
+					else if(attr.equals("actor"))
+						newMovie.setStarring(fi.getString("utf-8"));
+					else if(attr.equals("classes"))
+						newMovie.setClasses(fi.getString("utf-8"));
+					else if(attr.equals("descri"))
+						newMovie.setInfo(fi.getString("utf-8"));
+					else if(attr.equals("year"))
+						newMovie.setYear(Integer.parseInt(fi.getString("utf-8")));
+				} else {//文件
+					DiskFileItem dfi = (DiskFileItem) fi;
+					if(!dfi.getName().trim().equals("")){
+						String fileName = application.getRealPath("/public/image")
+								+ System.getProperty("file.separator")
+								+ FilenameUtils.getName(dfi.getName());
+						dfi.write(new File(fileName));
+						newMovie.setPic("public/image/"+FilenameUtils.getName(dfi.getName()));
+					}
+				}
+			}
+			int movieid = insertMovie(newMovie);
+			response.sendRedirect("details.jsp?mid="+String.valueOf(movieid));
+		}
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -70,7 +117,7 @@
     <div class="add-topic">
       <p>电影录入页</p>
     </div>
-    <form class="add-detail" action="details.jsp" method="post" enctype="multipart/form-data">
+    <form class="add-detail" action="addMovie.jsp" method="post" enctype="multipart/form-data">
       <div class="detail">
         <label>电影名称</label>
         <input type="text" name="movieName" id="movie-name">
@@ -107,8 +154,10 @@
         <label class="des">电影简介</label>
         <textarea type="text" name="descri" id="movie-descri"></textarea>
       </div>
+   
       <input id="movie_admin" type="submit" value="录入">
     </form>
+  
   </div>
 
   <!--footer-->
@@ -117,50 +166,6 @@
         <p>Copyright © 2017 Movie. All Rights Reserved. </p>
     </div>
   </div>
-  <!--登陆框-->
-  <div class="ui-mask" id="mask" onselectstart="return false"></div>
-  <form class="ui-dialog " id="dialog-Login" onselectstart='return false;'>
-    <div class="ui-dialog-title" onselectstart="return false;">
-      登陆通行证
-      <a class="ui-dialog-closebutton"  id="close_login"></a>
-    </div>
-    <div class="ui-dialog-content">
-      <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-username" name="username" type="input" placeholder="用户名">
-      </div>
-      <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-password" name="password" type="input" placeholder="密码">
-      </div>
-      <div>
-        <a class="ui-dialog-submit" href="index.jsp">登录</a>
-      </div>
-      <div class="ui-dialog-40">
-        <a href="#" id="jump_to_regist">立即注册</a>
-      </div>
-    </div>
-  </form>
-
-  <!--注册框-->
-  <form class="ui-dialog " id="dialog-register" onselectstart='return false;'>
-    <div class="ui-dialog-title" onselectstart="return false;">
-      注册账号
-      <a class="ui-dialog-closebutton" id="close_regist"></a>
-    </div>
-    <div class="ui-dialog-content">
-      <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-username" name="username" type="input" placeholder="用户名">
-      </div>
-      <div class="ui-dialog-40 ui-dialog-pt15">
-        <input class="ui-dialog-input ui-dialog-input-password" name="password" type="input" placeholder="密码">
-      </div>
-      <div>
-        <a class="ui-dialog-submit" href="index.jsp">注册</a>
-      </div>
-      <div class="ui-dialog-40">
-        <a href="#" id="jump_to_login">立即登录</a>
-      </div>
-    </div>
-  </form>
 
 
   <script type="text/javascript" src="public/js/index.js"></script>

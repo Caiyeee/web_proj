@@ -124,6 +124,7 @@
   <link rel="stylesheet" type="text/css" href="public/css/details.css">
   <script type="text/javascript" src="public/js/details.js"></script>
   <script>
+     var comment = document.getElementById('my-comment');
      function to_comment() {
    	  comment.style.height = '80px';
 	  sub_comment.style.opacity = '1';
@@ -154,7 +155,7 @@
     </div>
   </div>
   
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="flex: 1">
 	  <!-- 影片详情 -->
 	  <form action="details.jsp?mid=<%= getmovieid%>" method="post" class="movie-form">
 	    <div class="detail clearfx">

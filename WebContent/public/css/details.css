@@ -1,6 +1,9 @@
 body {
 	letter-spacing: 0.1em;
 	line-height: 20px;
+    display: flex;
+	flex-flow: column;
+	min-height: 100vh;
 }
 .bg-item {
     position: fixed;
@@ -124,6 +127,7 @@ body {
 #movieplot{
 	border:0 none;
 	line-height:25px;
+	overflow: auto;
 	width:500px;
 	min-height:300px;
 	padding-bottom: 10px;

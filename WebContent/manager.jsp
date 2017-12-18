@@ -24,6 +24,7 @@
 			<div class="movietable"><a href = "movielist.jsp">电影列表</a></div>
 			<div class="commenttable"><a href = "commentlist.jsp">评论列表</a></div>
 			<div class="usertable"><a href = "userlist.jsp">用户列表</a></div>
+			<div class="return"><a href = "index.jsp">返回主页面</div>
 		</div>
 	</body>
 </html>

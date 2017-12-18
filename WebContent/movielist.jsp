@@ -32,6 +32,7 @@
 		{
 			mid = request.getParameter("mid");
 			deleteMovie(Integer.parseInt(mid));
+			deleteCommentsByMid(Integer.parseInt(mid));
 			movielist = queryMovie("", 1);
 		}
 	}
@@ -44,7 +45,7 @@
 	</head>
 	<body>
 	    <div class="bg-item bg-blur"></div>
-		<div class="tabletitle"><strong>电影列表</strong></div>
+		<div class="tabletitle"><strong>电影列表</strong><span><a  class="return" href="manager.jsp">返回</a></span></div>
 		<div class="searchmovie">
 		<form action="movielist.jsp" method = "post">
 		<div class="search">
@@ -52,6 +53,7 @@
 	        <span><input type="submit" name="searchButton" id="searchButton" class="search-button" value=""></span>
         </div>
          </form>
+         
          </div>
 		<% String movie = "";
 	    if(movielist != null){

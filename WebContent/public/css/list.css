@@ -36,7 +36,11 @@
 	font-size:50px;
 	color:white;
 }
-
+.tabletitle .return {
+	font-size:20px;
+	color:white;
+	margin:10px;
+}
 .list{
 	width:600px;
 	height:50px;

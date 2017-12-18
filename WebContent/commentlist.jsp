@@ -42,7 +42,7 @@
 	</head>
 	<body>
 	    <div class="bg-item bg-blur"></div>
-		<div class="tabletitle"><strong>评论列表</strong></div>
+		<div class="tabletitle"><strong>评论列表</strong><span><a  class="return" href="manager.jsp">返回</a></span></div>
 		<div class="searchmovie">
 		<form action="commentlist.jsp" method = "post">
 		<div class="search">

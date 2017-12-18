@@ -18,12 +18,15 @@
     
     String sub1 = "";
     String sub2 = "";
+    String sub3 = "";
     String search = "";
     String getuserid = "";
+    String getcommentid = "";
     
     if(request.getMethod().equalsIgnoreCase("post")){
 		sub1 = request.getParameter("searchButton");
 		sub2 = request.getParameter("deleteuser");
+		sub3 = request.getParameter("deletecomment");
 		if(sub1 != null){
 			search = request.getParameter("search");
 			userlist = queryUser(search);
@@ -31,6 +34,11 @@
 		if(sub2 != null){
 			getuserid = request.getParameter("userid");
 			deleteUser(Integer.parseInt(getuserid));
+			userlist = queryAllUser();
+		}
+		if(sub3 != null){
+			getcommentid = request.getParameter("commentid");
+			deleteComment(Integer.parseInt(getcommentid));
 			userlist = queryAllUser();
 		}
 	}
@@ -43,7 +51,7 @@
 	</head>
 	<body>
 	    <div class="bg-item bg-blur"></div>
-		<div class="tabletitle"><strong>用户列表</strong></div>
+		<div class="tabletitle"><strong>用户列表</strong><span><a  class="return" href="manager.jsp">返回</a></span></div>
 		<div class="searchmovie">
 		<form action="userlist.jsp" method = "post">
 		<div class="search">

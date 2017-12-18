@@ -114,6 +114,19 @@
 			return 0;
 		}
 	}
+	//通过电影id删除评论
+	public int deleteCommentsByMid(int mid){
+		try{
+			Statement stmt=con.createStatement();
+			String sql = "delete from comments where movie_id=" + String.valueOf(mid);
+			int res = stmt.executeUpdate(sql);
+			stmt.close();
+			return res;
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return 0;
+		}
+	}
 	//删除电影
 	public boolean deleteMovie(int id){
 		try{

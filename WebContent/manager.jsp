@@ -3,6 +3,13 @@
 
 <%  
 	request.setCharacterEncoding("utf-8");
+	Object user = session.getAttribute("username");
+	String user_ = "";
+	if(user != null)
+		user_ = user.toString();
+	if(!user_.equals("manager")) {
+		response.sendRedirect("index.jsp");
+	}
 %>
 
 <html>

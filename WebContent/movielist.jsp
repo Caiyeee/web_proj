@@ -52,7 +52,7 @@
 				<form action="movielist.jsp?mid=<%= map.get("id")%>" method="post">
 				<div class="ulist">
 				
-				<div><a href="details.jsp?mid=<%= map.get("id")%>"><%= map.get("name")%></a><div>
+				<div><a href="details.jsp?mid=<%= map.get("id")%>"><%= map.get("name")%></a></div>
 				<input type="submit" id="deletecomment" name="deletemovie" value="删除">
 				
 				</div>

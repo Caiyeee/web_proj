@@ -173,6 +173,26 @@
 			return null;
 		}
 	}
+	//管理员 电影id到电影名字
+	public String queryMovieToGetName(String moviename){
+		try{
+			Statement stmt=con.createStatement();
+			String sql="";
+			sql = "select * from movies where id=" + moviename;
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				String s = rs.getString("name");
+				stmt.close();
+				return s;
+			} else {
+				stmt.close();
+				return null;
+			}
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+			return null;
+		}
+	}
 	//按分类查询电影
 	public List<Map<String,String>> movieClass(String classes){
 		try{

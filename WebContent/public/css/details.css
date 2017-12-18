@@ -125,7 +125,7 @@ body {
 	border:0 none;
 	line-height:25px;
 	width:500px;
-	min-height:250px;
+	min-height:300px;
 	padding-bottom: 10px;
 	resize:none;
 	outline:none;
@@ -135,7 +135,6 @@ body {
 	width:500px;
 }
 
-<<<<<<< HEAD
 .awake-to-login {
 	margin: 10px auto 40px;
 	width: 880px;

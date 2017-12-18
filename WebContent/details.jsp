@@ -46,6 +46,7 @@
 		movieyear = "null";
 		movieclass = "null";
 		movieinfo = "null";
+		moviepost = "null";
 	}
 	
 	List<Map<String,String>> commentlist = queryComment(movieid);
@@ -130,7 +131,7 @@
   </script>
 </head>
 <body>
-  <div class="bg-item bg-blur"></div>
+  <div class="bg-item bg-blur" style="background-image:url(<%= moviepost%>)"></div>
   <!-- 向js文件传递信息 -->
   <input type = "hidden" id="isLogin" value="<%= isLogin%>"> 
   <!--导航栏-->
@@ -139,7 +140,7 @@
       <img class="logo" src="public/image/hdmovie_32.png">
       <ul>
         <li><a href="index.jsp">首页</a></li>
-        <li><a href="#">关于我们</a></li>
+        <li><a href="https://github.com/Caiyeee/web_proj">关于我们</a></li>
       </ul>
       <div class="login_register">
         <%if(session.getAttribute("username") == null) {%>

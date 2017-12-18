@@ -45,12 +45,13 @@
          </div>
          
 
-		<% String movie = "";
+		<% 
 	    if(userlist != null){
 			for(int i=0; i<userlist.size(); i++){
 				Map<String,String> map = userlist.get(i);
 				String username = map.get("name");
-				String userid = String.valueOf(map.get("id"));%>
+				String userid = String.valueOf(map.get("id"));
+			    %>
 				<%if(!username.equals("manager")){ %>
 				<div class="ulist">
 					<div><%= username%></div>
@@ -58,8 +59,6 @@
 					<form action="userlist.jsp?userid=<%= userid%>" method = "post">
 						<input type="submit" id="deletecomment" name="deleteuser" value="删除该用户">
 					</form>
-					
-					
 				</div><%}%>
 				<div class="allcomment">
 				<%List<Map<String,String>> commentlist = queryCommentById(userid);
@@ -67,15 +66,18 @@
 					for(int j = 0; j < commentlist.size(); j++){
 						Map<String,String> commentmap = commentlist.get(j);
 						String commentuser = queryNameById(String.valueOf(commentmap.get("user_id")));
-						String commentcontent = commentmap.get("content");%>
+						String commentcontent = commentmap.get("content");
+						String getmovieid = String.valueOf(commentmap.get("movie_id"));
+						String getthismoviename = queryMovieToGetName(getmovieid);
+						%>
 						<div class="comment">
-							<div class="commentcontent"><%= commentcontent%></div>
+							<div class="commentcontent"><%= commentcontent%><strong>《<%= getthismoviename%>》</strong></div>
 							<form action="userlist.jsp?commentid=<%= commentmap.get("id")%>" method = "post">
 							<input id="deletecomment" value="删除该条评论" type="submit" name="deletecomment">
 							</form>
 						</div>
-					<%}
-				}%>
+					<%}%>
+				<%}%>
 				</div>
 			<%}
 		}%>		

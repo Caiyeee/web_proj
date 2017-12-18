@@ -1,5 +1,6 @@
 <%@ page language="java"  import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <%@ include file="DB.jsp" %>
+<%@ include file="MD5.jsp" %>
 <%
   String username = request.getParameter("username");
   String password = request.getParameter("password");
@@ -16,10 +17,10 @@
 	  s =  String.valueOf(list.get(0).get("password"));
   }
 
-  if(s == null || !s.equals(password)) {
+  if(s == null || !s.equals(getMD5(password))) {
 	  response.sendRedirect("loginFair.jsp?user="+ username + "&pass=" + password + "&mid=" + mid 
 			  	+ "&user_id=" + user_id + "&from=" + request.getParameter("from"));
-  }else if(s != null && s.equals(password)){
+  }else if(s != null && s.equals(getMD5(password))){
 	if(username.equals("manager")){
 		session.setAttribute("username", username);
 	    session.setAttribute("userId", user_id);

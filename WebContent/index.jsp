@@ -31,7 +31,9 @@
 	     list = movieClass("悬疑");
 	    } else if(class_str.equals("cart")) {
 	     list = movieClass("动画");
-	    }	  
+	    } else if(class_str.equals("afr")) {
+	    	list = movieClass("恐怖");
+	    }
     } else {
     	list = queryMovie(search, 1);
  	    System.out.print("查询");
